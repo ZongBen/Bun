@@ -1,0 +1,11 @@
+@host = {{be-auth-url}}/auth
+
+###
+
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "pwd"
+}

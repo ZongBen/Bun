@@ -1,0 +1,7 @@
+{
+    "rest-client.environmentVariables": {
+        "local": {
+            "be-auth-url": "http://localhost:8080/api/be-auth",
+        }
+    }
+}
