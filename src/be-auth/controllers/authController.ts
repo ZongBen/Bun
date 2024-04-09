@@ -7,11 +7,10 @@ export class AuthController extends BaseController {
 
     private async login(req: Request<any, any, LoginReq>, res: Response, next: NextFunction) {
         res.send("OK");
-        console.log(req.body.username, req.body.password);
         next();
     }
 
-    private error(req: Request, res: Response, next: NextFunction) {
+    private error(_req: Request, _res: Response, _next: NextFunction) {
         throw new Error("test");
     }
 

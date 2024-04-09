@@ -1,7 +1,7 @@
 import express from "express";
+require('express-async-errors');
 import type { IBaseController } from "../controller/interfaces/IBaseController";
 import { exceptionMiddleware } from "./exceptionMiddleware";
-
 export class App {
   private _app: express.Application;
   private _port: number = 80;

@@ -9,3 +9,8 @@ Content-Type: application/json
   "username": "admin",
   "password": "pwd"
 }
+
+###
+
+GET {{host}}/error
+Content-Type: application/json
