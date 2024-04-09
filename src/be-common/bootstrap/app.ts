@@ -1,6 +1,6 @@
 import express from "express";
-import type { IBaseController } from "../../be-common/controller/interfaces/IBaseController";
-import { ExceptionMiddleware } from "../../be-common/bootstrap/ExceptionMiddleware";
+import type { IBaseController } from "../controller/interfaces/IBaseController";
+import { exceptionMiddleware } from "./exceptionMiddleware";
 
 export class App {
   private _app: express.Application;
@@ -30,7 +30,7 @@ export class App {
   }
 
   public useExceptionMiddleware() {
-    this._app.use(ExceptionMiddleware)
+    this._app.use(exceptionMiddleware)
   }
 
   public useBodyParser() {

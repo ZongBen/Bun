@@ -1,4 +1,4 @@
-import { App } from "./bootstrap/app";
+import { App } from "../be-common/bootstrap/app";
 import { controllers } from "./controllers";
 
 const app = App.create();
