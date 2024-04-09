@@ -2,7 +2,7 @@ import { Schema } from "mongoose";
 import { ModelCodes } from "./modelCodes";
 import type { IMongoSchema } from "../../../be-common/mongoLib/interfaces/IMongoSchema";
 
-interface IUser {
+export interface IUser {
     Account: string;
     Password: string;
     Salt: string;
