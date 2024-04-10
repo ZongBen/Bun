@@ -27,6 +27,7 @@ export class AuthController extends BaseController {
     }
 
     public mapRoutes() {
+        console.log('wow')
         this.router.post("/login", this.bindAction(this, this.login));
         this.router.get("/error", this.bindAction(this, this.error));
         return this.router;

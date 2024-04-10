@@ -1,0 +1,19 @@
+services:
+  auth-mongoDB-local:
+    container_name: auth-mongoDB-local
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - auth_mongodb_data_local:/data/db
+      - auth_mongodb_config_local:/data/configdb
+    networks:
+      - auth-local-network
+volumes:
+  auth_mongodb_data_local:
+    name: auth_mongodb_data_local
+  auth_mongodb_config_local:
+    name: auth_mongodb_config_local
+networks:
+  auth-local-network:
+    name: auth-local-network
