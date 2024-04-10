@@ -1,15 +1,21 @@
+import type { IReqHandler } from '../../../../../be-common/applicationLib/interfaces/IReqHandler';
 import type { IUserRepository } from "../../../persistences/IUserRepository";
-import type { LoginCommand } from "./loginCommand";
+import { LoginCommand } from "./loginCommand";
+import { inject, injectable } from 'inversify';
+import { TYPES } from '../../../../types';
 
-export class LoginCommandHandler {
+@injectable()
+export class LoginCommandHandler implements IReqHandler<LoginCommand, string> {
 
-    private readonly _userRepository: IUserRepository;
+    constructor(
+        @inject(TYPES.IUserRepository) private _userRepository: IUserRepository,
+    ) {
 
-    constructor(userRepository: IUserRepository) {
-        this._userRepository = userRepository;
     }
 
-    async handle(command: LoginCommand) {
-        const user = await this._userRepository.getUserByAccount(command.account);
+    async handle(req: LoginCommand): Promise<string> {
+        var user = await this._userRepository.getUserByAccount(req.account);
+        console.log(user);
+        return 'loginCommand handled';
     }
 }

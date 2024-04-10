@@ -1,4 +1,5 @@
 import express from "express";
+import "reflect-metadata";
 require('express-async-errors');
 import type { IBaseController } from "../controller/interfaces/IBaseController";
 import { exceptionMiddleware } from "./exceptionMiddleware";

@@ -1,15 +1,17 @@
 import mongoose, { Model } from "mongoose";
 import type { IMongoSchema } from "./interfaces/IMongoSchema";
-import type { IMongoClient } from "./interfaces/IMongoClient";
-import { injectable } from "inversify";
-import type { IMongoInitializer } from "./interfaces/IMongoInitializer";
+import { inject, injectable } from "inversify";
+import type { IMongoHelper } from "./interfaces/IMongoHelper";
+import { MONGO_TYPES } from "./types";
 
 @injectable()
-export class MongoClient implements IMongoClient, IMongoInitializer {
+export class MongoHelper implements IMongoHelper {
 
     private readonly _db: mongoose.Connection;
 
-    public constructor(connStr: string) {
+    public constructor(
+        @inject(MONGO_TYPES.MongoConnectString) connStr: string
+    ) {
         mongoose.connect(connStr);
         this._db = mongoose.connection;
     }
