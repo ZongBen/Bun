@@ -1,4 +1,4 @@
-import { Router } from "express"
+import { Router, type Response } from "express"
 import type { IBaseController } from "./interfaces/IBaseController";
 import { injectable } from "inversify";
 import { validationResult } from "express-validator";
@@ -16,10 +16,10 @@ export abstract class BaseController implements IBaseController {
     public useValidation(rule: any) {
         return [
             rule,
-            (req: any, res: any, next: any) => {
+            (req: any, res: Response, next: any) => {
                 const errors = validationResult(req);
                 if (!errors.isEmpty()) {
-                    return res.status(400).json({ errors: errors.array() });
+                    return res.status(400).json({ errors: errors.array().map((error) => error.msg)});
                 }
                 next();
             }

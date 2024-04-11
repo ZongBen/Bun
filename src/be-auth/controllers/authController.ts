@@ -1,11 +1,11 @@
 import type { NextFunction, Request, Response } from "express";
 import { BaseController } from "../../be-common/controller/baseController";
-import type { LoginReq } from "../contract/auth/loginReq";
+import type { LoginReq } from "../contract/auth/login/loginReq";
 import { LoginCommand } from "../applicationLayer/userCase/command/login/loginCommand";
 import { inject } from "inversify";
 import type { IMediator } from "../../be-common/mediatorLib/interfaces/IMediator";
 import { MEDIATOR_TYPES } from "../../be-common/mediatorLib/types";
-import { loginRule } from "../contract/auth/loginRule";
+import { loginRule } from "../contract/auth/login/loginRule";
 
 export class AuthController extends BaseController {
     public apiPath: string = "/auth";
