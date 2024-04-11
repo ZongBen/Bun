@@ -1,4 +1,4 @@
-export class UserRoot {
+export class UserEntity {
     public readonly account: string;
     public readonly password: string;
     public readonly username: string;
@@ -9,7 +9,7 @@ export class UserRoot {
         this.username = username;
     }
 
-    public static Create(account: string, password: string, username: string): UserRoot {
-        return new UserRoot(account, password, username);
+    public static Create(account: string, password: string, username: string): UserEntity {
+        return new UserEntity(account, password, username);
     }
 }

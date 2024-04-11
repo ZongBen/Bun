@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import type { IMongoClient } from "../../../be-common/mongoLib/interfaces/IMongoClient";
 import type { IUserRepository } from "../../applicationLayer/persistences/IUserRepository";
-import { UserRoot } from "../../domainLayer/user/userRoot";
+import { UserEntity } from "../../domainLayer/user/userEntity";
 import { ModelCodes } from '../collections/modelCodes';
 import type { User } from "../collections/user";
 import { MONGO_TYPES } from "../../../be-common/mongoLib/types";
@@ -15,11 +15,11 @@ export class UserRepository implements IUserRepository {
 
     }
 
-    async getUserByAccount(account: string): Promise<UserRoot | null> {
+    async getUserByAccount(account: string): Promise<UserEntity | null> {
         const user = await this._mongoClient.getModel<User>(ModelCodes.USER).findOne({ Account: account });
         if (!user) {
             return null;
         }
-        return UserRoot.Create(user.Account, user.Password, user.UserName);
+        return UserEntity.Create(user.Account, user.Password, user.UserName);
     }
 }
