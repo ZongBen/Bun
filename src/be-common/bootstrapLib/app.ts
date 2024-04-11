@@ -6,17 +6,25 @@ import { Container } from "inversify";
 import type { IBaseController } from "../controllerLib/interfaces/IBaseController";
 import { _args } from "./app.args";
 import { AppOptions } from "./app.options";
-//const config = require(`E:\\github\\Bun\\src\\be-auth\\config\\config.local.ts`);
 
 export class App {
   private _app: express.Application;
   public serviceContainer: Container;
   public options: AppOptions;
+  public configuration: any;
 
   private constructor(options: AppOptions) {
     this._app = express();
     this.serviceContainer = new Container();
     this.options = options;
+    this.configuration = App.createConfig();
+  }
+
+  private static createConfig() {
+    const lastSlash = _args.positionals[1].lastIndexOf('/');
+    const path = _args.positionals[1].substring(0, lastSlash) + `/config/config.${_args.values.env}.ts`;
+    const { config } = require(path);
+    return config;
   }
 
   public static createBuilder(fn: (options: AppOptions) => void = () => {}) {

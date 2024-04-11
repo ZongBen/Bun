@@ -13,7 +13,7 @@ const app = App.createBuilder(opt => {
 });
 app.serviceContainer.load(
     new mediatorModule(app.serviceContainer, HandlerMap).getModule(),
-    new mongoModule('mongodb://localhost:27017/BunDev').getModule(),
+    new mongoModule(app.configuration.mongo.url).getModule(),
     new repositoryModule().getModule()
 );
 MongoAppExtension.regisSchemas(app.serviceContainer, schemas);

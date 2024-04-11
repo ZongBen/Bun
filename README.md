@@ -26,10 +26,11 @@ To run docker local envir
 bun run build-local-envir
 ```
 
-To run:
+To run auth:
 
 ```bash
-bun run be-auth
+bun run auth-local #local
+bun run auth-dev #dev
 ```
 
 This project was created using `bun init` in bun v1.1.2. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.

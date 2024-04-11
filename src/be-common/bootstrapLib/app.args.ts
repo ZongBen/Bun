@@ -5,9 +5,6 @@ export const _args = parseArgs({
     options: {
         env: {
             type: "string"
-        },
-        configPath: {
-            type: "string"
         }
     },
     strict: true,

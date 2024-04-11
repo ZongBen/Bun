@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "be-auth": "bun --watch src/be-auth/main.ts --env local",
+    "auth-local": "bun --watch src/be-auth/main.ts --env local",
+    "auth-dev": "bun --watch src/be-auth/main.ts --env dev",
     "build-local-envir": "sudo docker compose -f docker-compose.local.yml -p coreddd-local up -d"
   },
   "dependencies": {
