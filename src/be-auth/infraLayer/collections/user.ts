@@ -23,7 +23,7 @@ const userSchema = new Schema<IUser>(
     }
 );
 
-export class User implements IMongoSchema {
+export class UserSchema implements IMongoSchema {
     public colName = ModelCodes.USER;
     public schema = userSchema;
 }

@@ -12,3 +12,4 @@ export class mediatorModule {
         return module;
     }
 }
+

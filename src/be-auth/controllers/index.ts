@@ -1,5 +1,8 @@
+import type { Container } from "inversify";
 import { AuthController } from "./authController";
 
-export const controllers: any[] = [
-    AuthController
-];
+export const regisControllers = (container: Container) => {
+    return [
+        container.resolve(AuthController)
+    ];
+}

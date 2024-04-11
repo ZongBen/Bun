@@ -1,5 +1,5 @@
 import type { IMongoHelper } from './../be-common/mongoLib/interfaces/IMongoHelper';
-import { App } from "../be-common/bootstrap/app";
+import { App } from "../be-common/bootstrapLib/app";
 import { MONGO_TYPES } from '../be-common/mongoLib/types';
 import { schemas } from './infraLayer/collections';
 import { mediatorModule } from '../be-common/mediatorLib/mediatorModule';
@@ -10,7 +10,7 @@ import { mongoModule } from '../be-common/mongoLib/mongoModule';
 import type { IUserRepository } from './applicationLayer/persistences/IUserRepository';
 import { TYPES } from './types';
 import { UserRepository } from './infraLayer/repositories/userRepository';
-import { AuthController } from './controllers/authController';
+import { regisControllers } from './controllers';
 
 const app = App.createBuilder();
 app.setPort(8080);
@@ -24,8 +24,6 @@ app.serviceContainer.bind<IUserRepository>(TYPES.IUserRepository).to(UserReposit
 app.serviceContainer.get<IMongoHelper>(MONGO_TYPES.IMongoHelper).regisModel(schemas);
 
 app.useBodyParser();
-app.mapControllers([
-    app.serviceContainer.resolve(AuthController)
-]);
+app.mapController(c => regisControllers(c));
 app.useExceptionMiddleware();
 app.run();

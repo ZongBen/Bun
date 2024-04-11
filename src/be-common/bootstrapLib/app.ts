@@ -3,6 +3,7 @@ import "reflect-metadata";
 require('express-async-errors');
 import { exceptionMiddleware } from "./exceptionMiddleware";
 import { Container } from "inversify";
+import type { IBaseController } from "../controller/interfaces/IBaseController";
 export class App {
   private _app: express.Application;
   private _port: number = 80;
@@ -28,8 +29,8 @@ export class App {
     return this;
   }
 
-  mapControllers(controllers: any[]) {
-    controllers.forEach(c => {
+  public mapController(fn: (container: Container) => IBaseController[]) {
+    fn(this.serviceContainer).forEach(c => {
       this._app.use(`${this._apiPrefix}${c.apiPath}`, c.mapRoutes());
     });
     return this;
