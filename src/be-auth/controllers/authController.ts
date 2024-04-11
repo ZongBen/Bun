@@ -5,6 +5,7 @@ import { LoginCommand } from "../applicationLayer/userCase/command/login/loginCo
 import { inject } from "inversify";
 import type { IMediator } from "../../be-common/mediatorLib/interfaces/IMediator";
 import { MEDIATOR_TYPES } from "../../be-common/mediatorLib/types";
+import { loginRule } from "../contract/auth/loginRule";
 
 export class AuthController extends BaseController {
     public apiPath: string = "/auth";
@@ -27,7 +28,7 @@ export class AuthController extends BaseController {
     }
 
     public mapRoutes() {
-        this.router.post("/login", this.bindAction(this, this.login));
+        this.router.post("/login", this.useValidation(loginRule), this.bindAction(this, this.login));
         this.router.get("/error", this.bindAction(this, this.error));
         return this.router;
     }
