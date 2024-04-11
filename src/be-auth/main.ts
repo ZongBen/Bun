@@ -6,17 +6,15 @@ import { mongoModule } from '../be-common/mongoLib/mongoModule';
 import { regisControllers } from './controllers';
 import { repositoryModule } from './infraLayer/repositories/repositoryModule';
 import { MongoAppExtension } from '../be-common/mongoLib/mongo.app.extension';
-import { MediatorAppExtension } from "../be-common/mediatorLib/mediator.app.extension";
 
 const app = App.createBuilder();
 app.setPort(8080);
 app.setApiPrefix("/api/be-auth");
 app.serviceContainer.load(
-    new mediatorModule(app.serviceContainer).getModule(),
+    new mediatorModule(app.serviceContainer, HandlerMap).getModule(),
     new mongoModule('mongodb://localhost:27017/BunDev').getModule(),
     new repositoryModule().getModule()
 );
-MediatorAppExtension.regisMap(app.serviceContainer, HandlerMap);
 MongoAppExtension.regisSchemas(app.serviceContainer, schemas);
 app.useBodyParser();
 app.mapController(c => regisControllers(c));
