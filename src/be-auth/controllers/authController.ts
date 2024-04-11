@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import { BaseController } from "../../be-common/controller/baseController";
+import { BaseController } from "../../be-common/controllerLib/baseController";
 import type { LoginReq } from "../contract/auth/login/loginReq";
 import { LoginCommand } from "../applicationLayer/userCase/command/login/loginCommand";
 import { inject } from "inversify";

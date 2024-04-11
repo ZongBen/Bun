@@ -3,39 +3,31 @@ import "reflect-metadata";
 require('express-async-errors');
 import { exceptionMiddleware } from "./exceptionMiddleware";
 import { Container } from "inversify";
-import type { IBaseController } from "../controller/interfaces/IBaseController";
-import { _args } from "./appArgs";
+import type { IBaseController } from "../controllerLib/interfaces/IBaseController";
+import { _args } from "./app.args";
+import { AppOptions } from "./app.options";
 //const config = require(`E:\\github\\Bun\\src\\be-auth\\config\\config.local.ts`);
 
 export class App {
   private _app: express.Application;
-  private _port: number = 80;
-  private _apiPrefix: string = "/api";
   public serviceContainer: Container;
+  public options: AppOptions;
 
-  private constructor() {
-    console.log(_args.positionals[1]);
+  private constructor(options: AppOptions) {
     this._app = express();
     this.serviceContainer = new Container();
+    this.options = options;
   }
 
-  public static createBuilder() {
-    return new App();
-  }
-
-  public setPort(port: number) {
-    this._port = port;
-    return this;
-  }
-
-  public setApiPrefix(prefix: string) {
-    this._apiPrefix = prefix;
-    return this;
+  public static createBuilder(fn: (options: AppOptions) => void = () => {}) {
+    const options = new AppOptions();
+    fn(options);
+    return new App(options);
   }
 
   public mapController(fn: (container: Container) => IBaseController[]) {
     fn(this.serviceContainer).forEach(c => {
-      this._app.use(`${this._apiPrefix}${c.apiPath}`, c.mapRoutes());
+      this._app.use(`${this.options.routerPrefix}${c.apiPath}`, c.mapRoutes());
     });
     return this;
   }
@@ -51,8 +43,8 @@ export class App {
   }
 
   public run() {
-    this._app.listen(this._port, () => {
-      console.log(`Listening on port http://localhost:${this._port}${this._apiPrefix}`);
+    this._app.listen(this.options.port, () => {
+      console.log(`Listening on port http://localhost:${this.options.port}${this.options.routerPrefix}`);
     });
   }
 }

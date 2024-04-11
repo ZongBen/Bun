@@ -1,15 +1,16 @@
 import { App } from "../be-common/bootstrapLib/app";
 import { schemas } from './infraLayer/collections';
 import { mediatorModule } from '../be-common/mediatorLib/mediatorModule';
-import { HandlerMap } from './applicationLayer/userCase/handlerMap';
+import { HandlerMap } from './controllers/handlerMap';
 import { mongoModule } from '../be-common/mongoLib/mongoModule';
 import { resovleControllers } from './controllers';
 import { repositoryModule } from './infraLayer/repositories/repositoryModule';
 import { MongoAppExtension } from '../be-common/mongoLib/mongo.app.extension';
 
-const app = App.createBuilder();
-app.setPort(8080);
-app.setApiPrefix("/api/be-auth");
+const app = App.createBuilder(opt => {
+    opt.port = 8080;
+    opt.routerPrefix = "/api/be-auth";
+});
 app.serviceContainer.load(
     new mediatorModule(app.serviceContainer, HandlerMap).getModule(),
     new mongoModule('mongodb://localhost:27017/BunDev').getModule(),
