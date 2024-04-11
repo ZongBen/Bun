@@ -10,7 +10,7 @@ export class AuthController extends BaseController {
     public apiPath: string = "/auth";
 
     constructor(
-        @inject(MEDIATOR_TYPES.IMediator) private _mediator: IMediator
+        @inject(MEDIATOR_TYPES.IMediator) private readonly _mediator: IMediator
     ) { 
         super();
     }

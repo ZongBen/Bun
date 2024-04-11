@@ -8,7 +8,7 @@ import { TYPES } from '../../../../infraLayer/repositories/types';
 export class LoginCommandHandler implements IReqHandler<LoginCommand, string> {
 
     constructor(
-        @inject(TYPES.IUserRepository) private _userRepository: IUserRepository,
+        @inject(TYPES.IUserRepository) private readonly _userRepository: IUserRepository,
     ) {
 
     }

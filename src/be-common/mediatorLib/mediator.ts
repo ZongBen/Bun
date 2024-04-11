@@ -8,8 +8,8 @@ import { MEDIATOR_TYPES } from "./types";
 export class Mediator implements IMediator {
 
     constructor(
-        @inject(Container) private _container: Container,
-        @inject(MEDIATOR_TYPES.IMediatorMap) private _mediatorMap: IMediatorMap
+        @inject(Container) private readonly _container: Container,
+        @inject(MEDIATOR_TYPES.IMediatorMap) private readonly _mediatorMap: IMediatorMap
     ) {
     }
 

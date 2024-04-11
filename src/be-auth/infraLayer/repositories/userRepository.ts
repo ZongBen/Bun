@@ -10,7 +10,7 @@ import { MONGO_TYPES } from "../../../be-common/mongoLib/types";
 export class UserRepository implements IUserRepository {
 
     constructor(
-        @inject(MONGO_TYPES.IMongoClient) private _mongoClient: IMongoClient,
+        @inject(MONGO_TYPES.IMongoClient) private readonly _mongoClient: IMongoClient,
     ) {
 
     }

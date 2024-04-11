@@ -6,7 +6,7 @@ import { Module } from "../domainLib/module";
 import type { IMediatorMap } from "./interfaces/IMediatorMap";
 
 export class mediatorModule extends Module {    
-    constructor(private _container: Container, private _mediatorMap: any) {
+    constructor(private readonly _container: Container, private readonly _mediatorMap: any) {
         super();
     }
 

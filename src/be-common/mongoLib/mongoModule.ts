@@ -7,7 +7,7 @@ import { MongoHelper } from "./mongoHelper";
 import { Module } from "../domainLib/module";
 
 export class mongoModule extends Module {
-    constructor(private _connStr: string) {
+    constructor(private readonly _connStr: string) {
         super();
     }
 
