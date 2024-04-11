@@ -4,6 +4,6 @@ export abstract class Module {
     protected abstract bindModule(fn: (regis: interfaces.ContainerModuleCallBack) => interfaces.ContainerModuleCallBack): interfaces.ContainerModuleCallBack
 
     public getModule(): ContainerModule {
-        return new ContainerModule(this.bindModule((bind) => bind));
+        return new ContainerModule(this.bindModule((regis) => regis));
     }
 }
