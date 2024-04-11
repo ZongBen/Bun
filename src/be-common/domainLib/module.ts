@@ -3,7 +3,7 @@ import { ContainerModule, type interfaces } from "inversify";
 export abstract class Module {
     protected abstract bindModule(fn: (regis: interfaces.ContainerModuleCallBack) => interfaces.ContainerModuleCallBack): interfaces.ContainerModuleCallBack
 
-    public regisMoudle(): ContainerModule {
+    public getModule(): ContainerModule {
         return new ContainerModule(this.bindModule((bind) => bind));
     }
 }

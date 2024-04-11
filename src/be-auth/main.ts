@@ -12,9 +12,9 @@ const app = App.createBuilder();
 app.setPort(8080);
 app.setApiPrefix("/api/be-auth");
 app.serviceContainer.load(
-    new mediatorModule(app.serviceContainer).regisMoudle(),
-    new mongoModule('mongodb://localhost:27017/BunDev').regisMoudle(),
-    new repositoryModule().regisMoudle()
+    new mediatorModule(app.serviceContainer).getModule(),
+    new mongoModule('mongodb://localhost:27017/BunDev').getModule(),
+    new repositoryModule().getModule()
 );
 MediatorAppExtension.regisMap(app.serviceContainer, HandlerMap);
 MongoAppExtension.regisSchemas(app.serviceContainer, schemas);
