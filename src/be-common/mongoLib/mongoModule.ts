@@ -4,7 +4,7 @@ import type { IMongoHelper } from "./interfaces/IMongoHelper";
 import type { IMongoInitializer } from "./interfaces/IMongoInitializer";
 import { MONGO_TYPES } from "./types";
 import { MongoHelper } from "./mongoHelper";
-import { Module } from "../domainLib/module";
+import { Module } from "../containerLib/module";
 
 export class mongoModule extends Module {
     constructor(private readonly _connStr: string) {

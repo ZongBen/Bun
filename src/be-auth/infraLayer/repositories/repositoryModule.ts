@@ -1,5 +1,5 @@
 import type { interfaces } from "inversify";
-import { Module } from "../../../be-common/domainLib/module";
+import { Module } from "../../../be-common/containerLib/module";
 import type { IUserRepository } from "../../applicationLayer/persistences/IUserRepository";
 import { UserRepository } from "./userRepository";
 import { TYPES } from "./types";

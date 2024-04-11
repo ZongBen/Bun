@@ -2,7 +2,7 @@ import { Container, type interfaces } from "inversify";
 import type { IMediator } from "./interfaces/IMediator";
 import { MEDIATOR_TYPES } from "./types";
 import { Mediator } from "./mediator";
-import { Module } from "../domainLib/module";
+import { Module } from "../containerLib/module";
 import type { IMediatorMap } from "./interfaces/IMediatorMap";
 
 export class mediatorModule extends Module {    
