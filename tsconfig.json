@@ -8,7 +8,7 @@
       "allowJs": true,
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
-      "types": ["reflect-metadata"],
+      "types": ["reflect-metadata", "bun"],
   
       // Bundler mode
       "moduleResolution": "bundler",

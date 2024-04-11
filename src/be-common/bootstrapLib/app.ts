@@ -4,6 +4,9 @@ require('express-async-errors');
 import { exceptionMiddleware } from "./exceptionMiddleware";
 import { Container } from "inversify";
 import type { IBaseController } from "../controller/interfaces/IBaseController";
+import { _args } from "./appArgs";
+//const config = require(`E:\\github\\Bun\\src\\be-auth\\config\\config.local.ts`);
+
 export class App {
   private _app: express.Application;
   private _port: number = 80;
@@ -11,6 +14,7 @@ export class App {
   public serviceContainer: Container;
 
   private constructor() {
+    console.log(_args.positionals[1]);
     this._app = express();
     this.serviceContainer = new Container();
   }
