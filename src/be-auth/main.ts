@@ -16,8 +16,8 @@ app.serviceContainer.load(
     new mongoModule('mongodb://localhost:27017/BunDev').regisMoudle(),
     new repositoryModule().regisMoudle()
 );
-MediatorAppExtension.regisMap(app, HandlerMap);
-MongoAppExtension.regisSchemas(app, schemas);
+MediatorAppExtension.regisMap(app.serviceContainer, HandlerMap);
+MongoAppExtension.regisSchemas(app.serviceContainer, schemas);
 app.useBodyParser();
 app.mapController(c => regisControllers(c));
 app.useExceptionMiddleware();
