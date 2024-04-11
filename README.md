@@ -20,7 +20,7 @@ To install dependencies:
 bun install
 ```
 
-To run docker envir
+To run docker local envir
 
 ```bash
 bun run build-local-envir
