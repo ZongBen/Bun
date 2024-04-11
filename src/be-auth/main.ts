@@ -3,7 +3,7 @@ import { schemas } from './infraLayer/collections';
 import { mediatorModule } from '../be-common/mediatorLib/mediatorModule';
 import { HandlerMap } from './applicationLayer/userCase/handlerMap';
 import { mongoModule } from '../be-common/mongoLib/mongoModule';
-import { regisControllers } from './controllers';
+import { resovleControllers } from './controllers';
 import { repositoryModule } from './infraLayer/repositories/repositoryModule';
 import { MongoAppExtension } from '../be-common/mongoLib/mongo.app.extension';
 
@@ -17,6 +17,6 @@ app.serviceContainer.load(
 );
 MongoAppExtension.regisSchemas(app.serviceContainer, schemas);
 app.useBodyParser();
-app.mapController(c => regisControllers(c));
+app.mapController(c => resovleControllers(c));
 app.useExceptionMiddleware();
 app.run();
