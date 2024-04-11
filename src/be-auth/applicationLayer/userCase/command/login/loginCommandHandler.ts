@@ -2,7 +2,7 @@ import type { IReqHandler } from '../../../../../be-common/applicationLib/interf
 import type { IUserRepository } from "../../../persistences/IUserRepository";
 import { LoginCommand } from "./loginCommand";
 import { inject, injectable } from 'inversify';
-import { TYPES } from '../../../../types';
+import { TYPES } from '../../../../infraLayer/repositories/types';
 
 @injectable()
 export class LoginCommandHandler implements IReqHandler<LoginCommand, string> {
