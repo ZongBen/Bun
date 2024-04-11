@@ -1,5 +1,5 @@
-import type { UserRoot } from "../../domainLayer/user/userEntity";
+import type { UserEntity } from "../../domainLayer/user/userEntity";
 
 export interface IUserRepository {
-    getUserByAccount(account: string): Promise<UserRoot | null>;
+    getUserByAccount(account: string): Promise<UserEntity | null>;
 }
