@@ -10,7 +10,7 @@ import { Glob } from "bun";
 
 export class App {
   private _app: express.Application;
-  private _executeRootPath: string = App.RootPath();
+  private _executeRootPath: string = App._getExecuteRootPath();
   public serviceContainer: Container;
   public options: AppOptions;
   public configuration: any;
@@ -19,16 +19,16 @@ export class App {
     this._app = express();
     this.options = options;
     this.serviceContainer = new Container(options.container);
-    this.configuration = this.createConfig();
+    this.configuration = this._createConfig();
   }
 
-  private createConfig() {
+  private _createConfig() {
     const configFile = this._executeRootPath + this.options.configPath + `/config.${_args.values.env}.json`;
     const config = require(configFile);
     return config;
   }
 
-  private static RootPath() {
+  private static _getExecuteRootPath() {
     const unixLastSlash = _args.positionals[1].lastIndexOf('/');
     const windowsLastSlash = _args.positionals[1].lastIndexOf('\\');
     const lastSlash = unixLastSlash > windowsLastSlash ? unixLastSlash : windowsLastSlash;
