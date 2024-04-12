@@ -4,7 +4,6 @@ import { mediatorModule } from '../be-common/mediatorLib/mediatorModule';
 import { HandlerMap } from './controllers/handlerMap';
 import { mongoModule } from '../be-common/mongoLib/mongoModule';
 import { resovleControllers } from './controllers';
-import { repositoryModule } from './infraLayer/repositories/repositoryModule';
 import { MongoAppExtension } from '../be-common/mongoLib/mongo.app.extension';
 
 const app = App.createBuilder(opt => {
@@ -14,7 +13,6 @@ const app = App.createBuilder(opt => {
 app.serviceContainer.load(
     new mediatorModule(app.serviceContainer, HandlerMap).getModule(),
     new mongoModule(app.configuration.mongo.url).getModule(),
-    new repositoryModule().getModule()
 );
 MongoAppExtension.regisSchemas(app.serviceContainer, schemas);
 app.useBodyParser();

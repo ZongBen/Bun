@@ -2,13 +2,13 @@ import type { IReqHandler } from '../../../../../be-common/applicationLib/interf
 import type { IUserRepository } from "../../../persistences/IUserRepository";
 import { LoginCommand } from "./loginCommand";
 import { inject, injectable } from 'inversify';
-import { REPO_TYPES } from '../../../persistences/types';
+import { UserRepository } from '../../../../infraLayer/repositories/userRepository';
 
 @injectable()
 export class LoginCommandHandler implements IReqHandler<LoginCommand, string> {
 
     constructor(
-        @inject(REPO_TYPES.IUserRepository) private readonly _userRepository: IUserRepository,
+        @inject(UserRepository) private readonly _userRepository: IUserRepository,
     ) {
 
     }

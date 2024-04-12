@@ -15,13 +15,15 @@ export class App {
 
   private constructor(options: AppOptions) {
     this._app = express();
-    this.serviceContainer = new Container();
+    this.serviceContainer = new Container({ autoBindInjectable: true });
     this.options = options;
     this.configuration = App.createConfig();
   }
 
   private static createConfig() {
-    const lastSlash = _args.positionals[1].lastIndexOf('/');
+    const unixLastSlash = _args.positionals[1].lastIndexOf('/');
+    const windowsLastSlash = _args.positionals[1].lastIndexOf('\\');
+    const lastSlash = unixLastSlash > windowsLastSlash ? unixLastSlash : windowsLastSlash;
     const path = _args.positionals[1].substring(0, lastSlash) + `/config/config.${_args.values.env}.ts`;
     const { config } = require(path);
     return config;
