@@ -35,7 +35,9 @@ export abstract class BaseController implements IBaseController {
             });
         } 
         else if (result instanceof ErrorResponse) {
-            res.status(result.statusCode).send(result.message);
+            res.status(result.statusCode).send({
+                errors: [result.message]
+            });
         }
         next();
     }

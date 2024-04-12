@@ -6,6 +6,8 @@ import type { IUserRepository } from '../../../persistences/IUserRepository';
 import { OkResponse } from '../../../../../be-common/applicationLib/okResponse';
 import type { ErrorResponse } from '../../../../../be-common/applicationLib/errorResponse';
 import { DuplicatedError } from './duplicatedError';
+import { RegisterResult } from './registerResult';
+import { UserEntity } from '../../../../domainLayer/user/userEntity';
 
 
 @injectable()
@@ -16,11 +18,11 @@ export class RegisterCommandHandler implements IReqHandler<RegisterCommand, OkRe
     ) {}
 
     async handle(req: RegisterCommand) {
-        const user = await this._userRepository.getUserByAccount(req.account);
-        if (user) {
+        const UserExist = (await this._userRepository.getUserByAccount(req.account)) !== null;
+        if (UserExist) {
             return new DuplicatedError();
         }
-        await this._userRepository.createUser(req);
-        return new OkResponse('register success');
+        const user = await this._userRepository.createUser(UserEntity.Create(req.account, req.password, req.username));
+        return new OkResponse(new RegisterResult(user.account, user.username));
     }
 }
