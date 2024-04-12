@@ -6,27 +6,33 @@ import { Container } from "inversify";
 import type { IBaseController } from "../controllerLib/interfaces/IBaseController";
 import { _args } from "./app.args";
 import { AppOptions } from "./app.options";
+import { Glob } from "bun";
 
 export class App {
   private _app: express.Application;
+  private _rootPath: string = App.RootPath();
   public serviceContainer: Container;
   public options: AppOptions;
   public configuration: any;
 
   private constructor(options: AppOptions) {
     this._app = express();
-    this.serviceContainer = new Container({ autoBindInjectable: true });
     this.options = options;
-    this.configuration = App.createConfig();
+    this.serviceContainer = new Container({ autoBindInjectable: true });
+    this.configuration = this.createConfig();
   }
 
-  private static createConfig() {
+  private createConfig() {
+    const path = this._rootPath + `/config/config.${_args.values.env}.ts`;
+    const { config } = require(path);
+    return config;
+  }
+
+  private static RootPath() {
     const unixLastSlash = _args.positionals[1].lastIndexOf('/');
     const windowsLastSlash = _args.positionals[1].lastIndexOf('\\');
     const lastSlash = unixLastSlash > windowsLastSlash ? unixLastSlash : windowsLastSlash;
-    const path = _args.positionals[1].substring(0, lastSlash) + `/config/config.${_args.values.env}.ts`;
-    const { config } = require(path);
-    return config;
+    return _args.positionals[1].substring(0, lastSlash);
   }
 
   public static createBuilder(fn: (options: AppOptions) => void = () => {}) {
@@ -35,10 +41,26 @@ export class App {
     return new App(options);
   }
 
+  /*
   public mapController(fn: (container: Container) => IBaseController[]) {
     fn(this.serviceContainer).forEach(c => {
       this._app.use(`${this.options.routerPrefix}${c.apiPath}`, c.mapRoutes());
     });
+    return this;
+  }
+  */
+
+  public mapController() {
+    const glob = new Glob('*Controller.ts');
+    for (const file of glob.scanSync({
+      cwd: this._rootPath + '/controllers'
+    })) {
+      const controller = require(this._rootPath + '/controllers/' + file);
+      for(const key in controller) {
+        const c = this.serviceContainer.resolve(controller[key]) as IBaseController;
+        this._app.use(`${this.options.routerPrefix}${c.apiPath}`, c.mapRoutes());
+      } 
+    }
     return this;
   }
 

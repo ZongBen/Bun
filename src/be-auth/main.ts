@@ -16,6 +16,7 @@ app.serviceContainer.load(
 );
 MongoAppExtension.regisSchemas(app.serviceContainer, schemas);
 app.useBodyParser();
-app.mapController(c => resovleControllers(c));
+//app.mapController(c => resovleControllers(c));
+app.mapController();
 app.useExceptionMiddleware();
 app.run();
