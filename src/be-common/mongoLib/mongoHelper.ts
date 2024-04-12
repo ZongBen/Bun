@@ -22,7 +22,7 @@ export class MongoHelper implements IMongoHelper {
         });
     }
 
-    public getModel<T>(colName: string): Model<T> {
+    public getCol<T>(colName: string): Model<T> {
         return this._db.model<T>(colName);
     }
 }

@@ -16,10 +16,21 @@ export class UserRepository implements IUserRepository {
     }
 
     async getUserByAccount(account: string): Promise<UserEntity | null> {
-        const user = await this._mongoClient.getModel<User>(ModelCodes.USER).findOne({ Account: account });
+        const user = await this._mongoClient.getCol<User>(ModelCodes.USER).findOne({ Account: account });
         if (!user) {
             return null;
         }
         return UserEntity.Create(user.Account, user.Password, user.UserName);
+    }
+
+    async createUser(userEnity: UserEntity): Promise<UserEntity> {
+        const userModel = this._mongoClient.getCol<User>(ModelCodes.USER);
+        await userModel.create({
+            Account: userEnity.account,
+            Password: userEnity.password,
+            UserName: userEnity.username,
+            Salt: '123'
+        });
+        return userEnity;
     }
 }

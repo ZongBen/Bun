@@ -11,9 +11,5 @@ export const loginRule = [
 
     body(req.key('password'))
         .notEmpty().withMessage('password is required')
-        .isString().withMessage('password must be string'),
-
-    body(req.key('username'))
-        .notEmpty().withMessage('username is required')
-        .isString().withMessage('username must be string'),
+        .isString().withMessage('password must be string')
 ]

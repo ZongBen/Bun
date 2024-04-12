@@ -1,6 +1,6 @@
+require('express-async-errors');
 import express from "express";
 import "reflect-metadata";
-require('express-async-errors');
 import { exceptionMiddleware } from "./exceptionMiddleware";
 import { Container } from "inversify";
 import type { IBaseController } from "../controllerLib/interfaces/IBaseController";
@@ -58,6 +58,14 @@ export class App {
 
   public useExceptionMiddleware() {
     this._app.use(exceptionMiddleware)
+    return this;
+  }
+
+  public useReqLogger() {
+    this._app.use((req, _res, next) => {
+      console.log(`${req.method} ${req.url}`);
+      next();
+    });
     return this;
   }
 

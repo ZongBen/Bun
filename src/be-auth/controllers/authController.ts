@@ -6,6 +6,8 @@ import { inject } from "inversify";
 import type { IMediator } from "../../be-common/mediatorLib/interfaces/IMediator";
 import { MEDIATOR_TYPES } from "../../be-common/mediatorLib/types";
 import { loginRule } from "../contract/auth/login/loginRule";
+import type { RegisterReq } from "../contract/auth/register/registerReq";
+import { RegisterCommand } from "../applicationLayer/userCase/command/register/registerCommand";
 
 export class AuthController extends BaseController {
     public apiPath: string = "/auth";
@@ -17,19 +19,25 @@ export class AuthController extends BaseController {
     }
 
     private async login(req: Request<any, any, LoginReq>, res: Response, next: NextFunction) {
-        const command = new LoginCommand(req.body.account, req.body.password, req.body.username);
-        const result = await this._mediator.send<string>(command);
-        res.send(result);
-        next();
+        const command = new LoginCommand(req.body.account, req.body.password);
+        const result = await this._mediator.send<any>(command);
+        this.resvoleResponse(result, res, next);
     }
 
     private error(_req: Request, _res: Response, _next: NextFunction) {
         throw new Error("test");
     }
 
+    private async register(req: Request<any, any, RegisterReq>, res: Response, next: NextFunction) {
+        const command = new RegisterCommand(req.body.account, req.body.password, req.body.username);
+        const result = await this._mediator.send<any>(command);
+        this.resvoleResponse(result, res, next);
+    }
+
     public mapRoutes() {
         this.router.post("/login", this.useValidation(loginRule), this.bindAction(this, this.login));
         this.router.get("/error", this.bindAction(this, this.error));
+        this.router.post("/register", this.bindAction(this, this.register));
         return this.router;
     }
 }
