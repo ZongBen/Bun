@@ -13,7 +13,7 @@ export class mediatorModule extends Module {
     protected bindModule(fn: (regis: interfaces.ContainerModuleCallBack) => interfaces.ContainerModuleCallBack): interfaces.ContainerModuleCallBack {
         return fn((bind) => {
             bind<IMediatorMap>(MEDIATOR_TYPES.IMediatorMap).to(this._mediatorMap).inSingletonScope();
-            bind<IMediator>(MEDIATOR_TYPES.IMediator).to(Mediator).inTransientScope();
+            bind<IMediator>(MEDIATOR_TYPES.IMediator).to(Mediator).inSingletonScope();
             bind<Container>(Container).toConstantValue(this._container);
         });
     }   

@@ -3,12 +3,15 @@ import { schemas } from './infraLayer/collections';
 import { mediatorModule } from '../be-common/mediatorLib/mediatorModule';
 import { HandlerMap } from './controllers/handlerMap';
 import { mongoModule } from '../be-common/mongoLib/mongoModule';
-import { resovleControllers } from './controllers';
 import { MongoAppExtension } from '../be-common/mongoLib/mongo.app.extension';
 
 const app = App.createBuilder(opt => {
     opt.port = 8080;
     opt.routerPrefix = "/api/be-auth";
+    opt.container = {
+        autoBindInjectable: true,
+        defaultScope: "Transient",
+    };
 });
 app.serviceContainer.load(
     new mediatorModule(app.serviceContainer, HandlerMap).getModule(),
@@ -16,7 +19,6 @@ app.serviceContainer.load(
 );
 MongoAppExtension.regisSchemas(app.serviceContainer, schemas);
 app.useBodyParser();
-//app.mapController(c => resovleControllers(c));
 app.mapController();
 app.useExceptionMiddleware();
 app.run();

@@ -10,7 +10,7 @@ import { Glob } from "bun";
 
 export class App {
   private _app: express.Application;
-  private _rootPath: string = App.RootPath();
+  private _executeRootPath: string = App.RootPath();
   public serviceContainer: Container;
   public options: AppOptions;
   public configuration: any;
@@ -18,12 +18,12 @@ export class App {
   private constructor(options: AppOptions) {
     this._app = express();
     this.options = options;
-    this.serviceContainer = new Container({ autoBindInjectable: true });
+    this.serviceContainer = new Container(options.container);
     this.configuration = this.createConfig();
   }
 
   private createConfig() {
-    const path = this._rootPath + `/config/config.${_args.values.env}.ts`;
+    const path = this._executeRootPath + `/config/config.${_args.values.env}.ts`;
     const { config } = require(path);
     return config;
   }
@@ -41,24 +41,16 @@ export class App {
     return new App(options);
   }
 
-  /*
-  public mapController(fn: (container: Container) => IBaseController[]) {
-    fn(this.serviceContainer).forEach(c => {
-      this._app.use(`${this.options.routerPrefix}${c.apiPath}`, c.mapRoutes());
-    });
-    return this;
-  }
-  */
-
   public mapController() {
+    const controllerRootPath = this._executeRootPath + this.options.controllerPath;
     const glob = new Glob('*Controller.ts');
     for (const file of glob.scanSync({
-      cwd: this._rootPath + '/controllers'
+      cwd: controllerRootPath
     })) {
-      const controller = require(this._rootPath + '/controllers/' + file);
-      for(const key in controller) {
-        const c = this.serviceContainer.resolve(controller[key]) as IBaseController;
-        this._app.use(`${this.options.routerPrefix}${c.apiPath}`, c.mapRoutes());
+      const controllerModule = require(controllerRootPath + '/' + file);
+      for(const c in controllerModule) {
+        const _ctor = this.serviceContainer.resolve(controllerModule[c]) as IBaseController;
+        this._app.use(`${this.options.routerPrefix}${_ctor.apiPath}`, _ctor.mapRoutes());
       } 
     }
     return this;
