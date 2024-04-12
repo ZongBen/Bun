@@ -23,8 +23,8 @@ export class App {
   }
 
   private createConfig() {
-    const path = this._executeRootPath + `/config/config.${_args.values.env}.ts`;
-    const { config } = require(path);
+    const configFile = this._executeRootPath + this.options.configPath + `/config.${_args.values.env}.json`;
+    const config = require(configFile);
     return config;
   }
 
