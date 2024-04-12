@@ -18,8 +18,8 @@ export class RegisterCommandHandler implements IReqHandler<RegisterCommand, OkRe
     ) {}
 
     async handle(req: RegisterCommand) {
-        const UserExist = (await this._userRepository.getUserByAccount(req.account)) !== null;
-        if (UserExist) {
+        const IsUserExist = (await this._userRepository.getUserByAccount(req.account)) !== null;
+        if (IsUserExist) {
             return new DuplicatedError();
         }
         const user = await this._userRepository.createUser(UserEntity.Create(req.account, req.password, req.username));
