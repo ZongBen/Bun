@@ -1,7 +1,7 @@
 import { App } from "../be-common/bootstrapLib/app";
 import { schemas } from './infraLayer/collections';
 import { mediatorModule } from '../be-common/mediatorLib/mediatorModule';
-import { HandlerMap } from './controllers/handlerMap';
+import { HandlerMap } from './applicationLayer/handlerMap';
 import { mongoModule } from '../be-common/mongoLib/mongoModule';
 import { MongoAppExtension } from '../be-common/mongoLib/mongo.app.extension';
 
