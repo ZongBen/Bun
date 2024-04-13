@@ -9,8 +9,8 @@ import type { ErrorResponse } from '../../../../../commonLib/applicationLib/erro
 import { CryptoHelper } from '../../../../../commonLib/applicationLib/cryptoHelper';
 import type { ICryptoHelper } from '../../../../../commonLib/applicationLib/interfaces/ICryptoHelper';
 import { JWTOKEN_TYPES } from '../../../../../commonLib/jwTokenLib/types';
-import type { IJwTokenHelper } from '../../../../../commonLib/jwTokenLib/interfaces/IJwTokenHelper';
 import { LoginResult } from './loginResult';
+import type { IJwTokenGenerator } from '../../../../../commonLib/jwTokenLib/interfaces/IJwTokenGenerator';
 
 @injectable()
 export class LoginCommandHandler implements IReqHandler<LoginCommand, OkResponse|ErrorResponse> {
@@ -18,7 +18,7 @@ export class LoginCommandHandler implements IReqHandler<LoginCommand, OkResponse
     constructor(
         @inject(UserRepository) private readonly _userRepository: IUserRepository,
         @inject(CryptoHelper) private readonly _cryptoHelper: ICryptoHelper,
-        @inject(JWTOKEN_TYPES.IJwTokenHelper) private readonly _jwTokenHelper: IJwTokenHelper
+        @inject(JWTOKEN_TYPES.IJwTokenGenerator) private readonly _jwTokenGenerator: IJwTokenGenerator
     ) {
 
     }
@@ -28,7 +28,7 @@ export class LoginCommandHandler implements IReqHandler<LoginCommand, OkResponse
         if (!user || !user.ValidPassword(this._cryptoHelper.hashPassword(req.password))) {
             return new LoginError();
         }
-        const token = this._userRepository.getUserToken(user, this._jwTokenHelper);
+        const token = this._userRepository.getUserToken(user, this._jwTokenGenerator);
         return new OkResponse(new LoginResult(token));
     }
 }

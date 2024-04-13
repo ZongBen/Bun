@@ -31,3 +31,4 @@ Content-Type: application/json
 
 POST {{host}}/logout
 Content-Type: application/json
+Authorization: {{jwToken}}

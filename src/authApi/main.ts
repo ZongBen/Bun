@@ -15,6 +15,10 @@ const app = App.createBuilder(opt => {
         autoBindInjectable: true,
         defaultScope: "Transient",
     };
+    opt.allowAnonymousPath = [
+        "/auth/login",
+        "/auth/register",
+    ]
 });
 app.serviceContainer.load(
     new mediatorModule(app.serviceContainer, HandlerMap).getModule(),
@@ -28,6 +32,7 @@ app.serviceContainer.load(
 MongoAppExtension.regisSchemas(app.serviceContainer, schemas);
 app.useBodyParser();
 app.useReqLogger();
+app.useJwtValidMiddleware();
 app.mapController();
 app.useExceptionMiddleware();
 app.run();

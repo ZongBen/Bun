@@ -15,7 +15,12 @@ export class JwTokenHelper implements IJwTokenHelper {
         return jwt.sign(payload, this._jwTokenSetting.secret, this._jwTokenSetting.options);
     }
 
-    verifyToken(token: string): string|JwtPayload {
-        return jwt.verify(token, this._jwTokenSetting.secret);
+    verifyToken(token: string): boolean|JwtPayload {
+        try {
+            return jwt.verify(token, this._jwTokenSetting.secret) as JwtPayload;
+        }
+        catch (err) {
+            return false;
+        }
     }
 }

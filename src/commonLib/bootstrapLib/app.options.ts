@@ -6,4 +6,5 @@ export class AppOptions {
     controllerPath: string = "/controllers";
     container: interfaces.ContainerOptions | undefined = undefined;
     configPath: string = "/config";
+    allowAnonymousPath: readonly string[] = [];
 }

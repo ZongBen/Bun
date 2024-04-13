@@ -36,6 +36,7 @@ export class AuthController extends BaseController {
     }
 
     private async logout(req: Request, res: Response, next: NextFunction) {
+        console.log(res.locals['jwtPayload'])
         res.send("logout");
         next();
     }
