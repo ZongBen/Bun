@@ -8,7 +8,7 @@ Content-Type: application/json
 {
   "username": "test",
   "password": "test",
-  "account": "aaa"
+  "account": "test"
 }
 
 ###
@@ -22,7 +22,7 @@ POST {{host}}/register
 Content-Type: application/json
 
 {
-  "username": "test",
+  "userName": "test",
   "password": "test",
-  "account": "123"
+  "account": "test"
 }
