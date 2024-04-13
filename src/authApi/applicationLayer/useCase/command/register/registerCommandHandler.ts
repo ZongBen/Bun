@@ -12,12 +12,12 @@ import { CryptoHelper } from '../../../../../commonLib/applicationLib/cryptoHelp
 import type { ICryptoHelper } from '../../../../../commonLib/applicationLib/interfaces/ICryptoHelper';
 
 @injectable()
-export class RegisterCommandHandler implements IReqHandler<RegisterCommand, OkResponse|ErrorResponse> {
+export class RegisterCommandHandler implements IReqHandler<RegisterCommand, OkResponse | ErrorResponse> {
 
     constructor(
         @inject(UserRepository) private readonly _userRepository: IUserRepository,
         @inject(CryptoHelper) private readonly _cryptoHelper: ICryptoHelper
-    ) {}
+    ) { }
 
     async handle(req: RegisterCommand) {
         const IsUserExist = (await this._userRepository.getUserByAccount(req.account)) !== null;
@@ -26,8 +26,8 @@ export class RegisterCommandHandler implements IReqHandler<RegisterCommand, OkRe
         }
         const user = await this._userRepository.createUser(
             UserEntity.Create(
-                req.account, 
-                this._cryptoHelper.hashPassword(req.password), 
+                req.account,
+                this._cryptoHelper.hashPassword(req.password),
                 req.userName
             )
         );

@@ -13,7 +13,7 @@ import { LoginResult } from './loginResult';
 import type { IJwTokenGenerator } from '../../../../../commonLib/jwTokenLib/interfaces/IJwTokenGenerator';
 
 @injectable()
-export class LoginCommandHandler implements IReqHandler<LoginCommand, OkResponse|ErrorResponse> {
+export class LoginCommandHandler implements IReqHandler<LoginCommand, OkResponse | ErrorResponse> {
 
     constructor(
         @inject(UserRepository) private readonly _userRepository: IUserRepository,

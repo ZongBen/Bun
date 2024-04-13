@@ -28,6 +28,6 @@ const userSchema = new Schema<User>(
 );
 
 export class UserSchema implements IMongoSchema {
-     colName = ModelCodes.USER;
-     schema = userSchema;
+    colName = ModelCodes.USER;
+    schema = userSchema;
 }

@@ -9,13 +9,13 @@ export class JwTokenHelper implements IJwTokenHelper {
 
     constructor(
         @inject(JWTOKEN_TYPES.IJwTokenSetting) private readonly _jwTokenSetting: IJwTokenSetting
-    ) {}
+    ) { }
 
     generateToken(payload: object): string {
         return jwt.sign(payload, this._jwTokenSetting.secret, this._jwTokenSetting.options);
     }
 
-    verifyToken(token: string): boolean|JwtPayload {
+    verifyToken(token: string): boolean | JwtPayload {
         try {
             return jwt.verify(token, this._jwTokenSetting.secret) as JwtPayload;
         }

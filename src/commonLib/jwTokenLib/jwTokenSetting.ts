@@ -5,5 +5,5 @@ export class JwTokenSetting implements IJwTokenSetting {
     constructor(
         public readonly secret: string,
         public readonly options: SignOptions
-    ) {}
+    ) { }
 }

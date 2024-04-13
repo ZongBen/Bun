@@ -35,7 +35,7 @@ export class AuthController extends BaseController {
         this.resvoleResponse(result, res, next);
     }
 
-    private async logout(req: Request, res: Response, next: NextFunction) {
+    private async logout(_req: Request, res: Response, next: NextFunction) {
         console.log(res.locals['jwtPayload'])
         res.send("logout");
         next();

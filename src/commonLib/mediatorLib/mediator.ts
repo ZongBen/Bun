@@ -13,9 +13,9 @@ export class Mediator implements IMediator {
     ) {
     }
 
-     async send<TRes>(req: any): Promise<TRes> {
+    async send<TRes>(req: any): Promise<TRes> {
         const handler = this._mediatorMap.get(req.constructor);
-        if(!handler) {
+        if (!handler) {
             throw new Error('handler not found');
         }
         const handlerInstance = this._container.resolve(handler) as IReqHandler<any, TRes>;

@@ -5,7 +5,7 @@ import { Mediator } from "./mediator";
 import { Module } from "../containerLib/module";
 import type { IMediatorMap } from "./interfaces/IMediatorMap";
 
-export class mediatorModule extends Module {    
+export class mediatorModule extends Module {
     constructor(private readonly _container: Container, private readonly _mediatorMap: any) {
         super();
     }
@@ -16,6 +16,6 @@ export class mediatorModule extends Module {
             bind<IMediator>(MEDIATOR_TYPES.IMediator).to(Mediator).inSingletonScope();
             bind<Container>(Container).toConstantValue(this._container);
         });
-    }   
+    }
 }
 
