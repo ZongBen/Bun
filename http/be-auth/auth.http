@@ -26,3 +26,8 @@ Content-Type: application/json
   "password": "test",
   "account": "test"
 }
+
+###
+
+POST {{host}}/logout
+Content-Type: application/json

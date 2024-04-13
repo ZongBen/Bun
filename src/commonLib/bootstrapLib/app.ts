@@ -11,9 +11,9 @@ import { Glob } from "bun";
 export class App {
   private _app: express.Application;
   private _executeRootPath: string = App._getExecuteRootPath();
-  public serviceContainer: Container;
-  public options: AppOptions;
-  public configuration: any;
+   serviceContainer: Container;
+   options: AppOptions;
+   configuration: any;
 
   private constructor(options: AppOptions) {
     this._app = express();
@@ -35,13 +35,13 @@ export class App {
     return _args.positionals[1].substring(0, lastSlash);
   }
 
-  public static createBuilder(fn: (options: AppOptions) => void = () => {}) {
+   static createBuilder(fn: (options: AppOptions) => void = () => {}) {
     const options = new AppOptions();
     fn(options);
     return new App(options);
   }
 
-  public mapController() {
+   mapController() {
     const controllerRootPath = this._executeRootPath + this.options.controllerPath;
     const glob = new Glob('*Controller.ts');
     for (const file of glob.scanSync({
@@ -56,12 +56,12 @@ export class App {
     return this;
   }
 
-  public useExceptionMiddleware() {
+   useExceptionMiddleware() {
     this._app.use(exceptionMiddleware)
     return this;
   }
 
-  public useReqLogger() {
+   useReqLogger() {
     this._app.use((req, _res, next) => {
       console.log(`${req.method} ${req.url}`);
       next();
@@ -69,12 +69,12 @@ export class App {
     return this;
   }
 
-  public useBodyParser() {
+   useBodyParser() {
     this._app.use(express.json());
     return this;
   }
 
-  public run() {
+   run() {
     this._app.listen(this.options.port, () => {
       console.log(`Listening on port http://localhost:${this.options.port}${this.options.routerPrefix}`);
     });

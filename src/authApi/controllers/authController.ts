@@ -11,11 +11,11 @@ import { RegisterCommand } from "../applicationLayer/useCase/command/register/re
 import { registerRule } from "../contract/auth/register/registerRule";
 
 export class AuthController extends BaseController {
-    public apiPath: string = "/auth";
+    apiPath: string = "/auth";
 
     constructor(
         @inject(MEDIATOR_TYPES.IMediator) private readonly _mediator: IMediator
-    ) { 
+    ) {
         super();
     }
 
@@ -35,10 +35,16 @@ export class AuthController extends BaseController {
         this.resvoleResponse(result, res, next);
     }
 
-    public mapRoutes() {
+    private async logout(req: Request, res: Response, next: NextFunction) {
+        res.send("logout");
+        next();
+    }
+
+    mapRoutes() {
         this.router.post("/login", this.useValidation(loginRule), this.bindAction(this, this.login));
         this.router.get("/error", this.bindAction(this, this.error));
         this.router.post("/register", this.useValidation(registerRule), this.bindAction(this, this.register));
+        this.router.post("/logout", this.bindAction(this, this.logout));
         return this.router;
     }
 }

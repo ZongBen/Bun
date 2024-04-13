@@ -1,3 +1,7 @@
 export class LoginResult {
-    token!: string;
+    token: string;
+
+    constructor(token: string) {
+        this.token = token;
+    }
 }

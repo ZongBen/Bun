@@ -9,20 +9,20 @@ export class MongoHelper implements IMongoHelper {
 
     private readonly _db: mongoose.Connection;
 
-    public constructor(
+     constructor(
         @inject(MONGO_TYPES.MongoConnectString) connStr: string
     ) {
         mongoose.connect(connStr);
         this._db = mongoose.connection;
     }
     
-    public regisModel(schemas: IMongoSchema[]) {
+     regisModel(schemas: IMongoSchema[]) {
         schemas.forEach((schema) => {
             this._db.model(schema.colName, schema.schema);
         });
     }
 
-    public getCol<T>(colName: string): Model<T> {
+     getCol<T>(colName: string): Model<T> {
         return this._db.model<T>(colName);
     }
 }

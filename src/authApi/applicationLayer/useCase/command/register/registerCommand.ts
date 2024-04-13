@@ -1,7 +1,7 @@
 export class RegisterCommand {
-    public readonly account: string;
-    public readonly password: string;
-    public readonly userName: string;
+     readonly account: string;
+     readonly password: string;
+     readonly userName: string;
 
     constructor(account: string, password: string, userName: string) {
         this.account = account;

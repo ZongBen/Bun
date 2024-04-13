@@ -1,6 +1,6 @@
 export class LoginCommand {
-    public readonly account: string;
-    public readonly password: string;
+     readonly account: string;
+     readonly password: string;
 
     constructor(account: string, password: string) {
         this.account = account;

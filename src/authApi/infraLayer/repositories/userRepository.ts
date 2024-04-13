@@ -5,6 +5,7 @@ import { UserEntity } from "../../domainLayer/user/userEntity";
 import { ModelCodes } from '../collections/modelCodes';
 import { User } from "../collections/user";
 import { MONGO_TYPES } from "../../../commonLib/mongoLib/types";
+import type { IJwTokenHelper } from "../../../commonLib/jwTokenLib/interfaces/IJwTokenHelper";
 
 @injectable()
 export class UserRepository implements IUserRepository {
@@ -31,5 +32,12 @@ export class UserRepository implements IUserRepository {
             userEnity.userName
         ))
         return userEnity;
+    }
+
+    getUserToken(userEntity: UserEntity, jwtHelper: IJwTokenHelper): string {
+        return jwtHelper.generateToken({ 
+            account: userEntity.account,
+            userName: userEntity.userName
+        });
     }
 }

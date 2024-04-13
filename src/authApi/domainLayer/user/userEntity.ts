@@ -1,7 +1,7 @@
 export class UserEntity {
-    public readonly account: string;
-    public readonly encryptedPwd: string;
-    public readonly userName: string;
+     readonly account: string;
+     readonly encryptedPwd: string;
+     readonly userName: string;
 
     private constructor(account: string, encryptedPwd: string, userName: string) {
         this.account = account;
@@ -9,11 +9,11 @@ export class UserEntity {
         this.userName = userName;
     }
 
-    public static Create(account: string, encryptedPwd: string, userName: string): UserEntity {
+     static Create(account: string, encryptedPwd: string, userName: string): UserEntity {
         return new UserEntity(account, encryptedPwd, userName);
     }
 
-    public ValidPassword(encryptedPwd: string): boolean {
+     ValidPassword(encryptedPwd: string): boolean {
         return this.encryptedPwd === encryptedPwd;
     }
 }

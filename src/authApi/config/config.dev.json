@@ -1,5 +1,11 @@
 {
     "mongo": {
         "url": "mongodb://localhost:27017/BunDev"
+    },
+    "jwToken": {
+        "secret": "dev-secret-key",
+        "options": {
+            "expiresIn": "1d"
+        }
     }
 }

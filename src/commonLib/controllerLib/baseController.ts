@@ -8,14 +8,14 @@ import { ErrorResponse } from "../applicationLib/errorResponse";
 @injectable()
 export abstract class BaseController implements IBaseController {
     protected router: Router = Router();
-    public abstract apiPath: string;
-    public abstract mapRoutes(): Router;
+     abstract apiPath: string;
+     abstract mapRoutes(): Router;
 
-    public bindAction(instance: IBaseController, action: Function) {
+     bindAction(instance: IBaseController, action: Function) {
         return action.bind(instance)
     }
 
-    public useValidation(rule: any) {
+     useValidation(rule: any) {
         return [
             rule,
             (req: any, res: Response, next: any) => {
@@ -28,10 +28,10 @@ export abstract class BaseController implements IBaseController {
         ];
     }
 
-    public resvoleResponse(result: OkResponse|ErrorResponse, res: Response, next: NextFunction) {
+     resvoleResponse(result: OkResponse|ErrorResponse, res: Response, next: NextFunction) {
         if (result instanceof OkResponse) {
             res.send({
-                data: result.data,
+                result: result.data,
             });
         } 
         else if (result instanceof ErrorResponse) {

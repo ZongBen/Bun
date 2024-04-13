@@ -5,6 +5,8 @@ import { HandlerMap } from './applicationLayer/handlerMap';
 import { mongoModule } from '../commonLib/mongoLib/mongoModule';
 import { MongoAppExtension } from '../commonLib/mongoLib/mongo.app.extension';
 import { CryptoModule } from "../commonLib/cryptoLib/cryptoModule";
+import { JwTokenModule } from "../commonLib/jwTokenLib/jwTokenModule";
+import { JwTokenSetting } from "../commonLib/jwTokenLib/jwTokenSetting";
 
 const app = App.createBuilder(opt => {
     opt.port = 8080;
@@ -17,7 +19,11 @@ const app = App.createBuilder(opt => {
 app.serviceContainer.load(
     new mediatorModule(app.serviceContainer, HandlerMap).getModule(),
     new mongoModule(app.configuration.mongo.url).getModule(),
-    new CryptoModule().getModule()
+    new CryptoModule().getModule(),
+    new JwTokenModule(new JwTokenSetting(
+        app.configuration.jwToken.secret,
+        app.configuration.jwToken.options
+    )).getModule()
 );
 MongoAppExtension.regisSchemas(app.serviceContainer, schemas);
 app.useBodyParser();

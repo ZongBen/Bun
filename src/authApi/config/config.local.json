@@ -1,5 +1,11 @@
 {
     "mongo": {
         "url": "mongodb://localhost:27017/BunLocal"
+    },
+    "jwToken": {
+        "secret": "local-secret-key",
+        "options": {
+            "expiresIn": "1d"
+        }
     }
 }

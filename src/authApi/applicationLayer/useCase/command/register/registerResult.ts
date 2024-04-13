@@ -1,6 +1,6 @@
 export class RegisterResult {
-    public readonly account!: string;
-    public readonly username!: string;
+     readonly account!: string;
+     readonly username!: string;
 
     constructor(account: string, username: string) {
         this.account = account;
