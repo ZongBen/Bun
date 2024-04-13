@@ -12,4 +12,8 @@ export class UserEntity {
     public static Create(account: string, encryptedPwd: string, userName: string): UserEntity {
         return new UserEntity(account, encryptedPwd, userName);
     }
+
+    public ValidPassword(encryptedPwd: string): boolean {
+        return this.encryptedPwd === encryptedPwd;
+    }
 }

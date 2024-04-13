@@ -8,16 +8,15 @@ import type { ErrorResponse } from '../../../../../commonLib/applicationLib/erro
 import { DuplicatedError } from './duplicatedError';
 import { RegisterResult } from './registerResult';
 import { UserEntity } from '../../../../domainLayer/user/userEntity';
-import { CRYPTO_TYPES } from '../../../../../commonLib/cryptoLib/types';
-import type { ICrypto } from '../../../../../commonLib/cryptoLib/interfaces/ICrypto';
-
+import { CryptoHelper } from '../../../../../commonLib/applicationLib/cryptoHelper';
+import type { ICryptoHelper } from '../../../../../commonLib/applicationLib/interfaces/ICryptoHelper';
 
 @injectable()
 export class RegisterCommandHandler implements IReqHandler<RegisterCommand, OkResponse|ErrorResponse> {
 
     constructor(
         @inject(UserRepository) private readonly _userRepository: IUserRepository,
-        @inject(CRYPTO_TYPES.ICrypto) private readonly _crypto: ICrypto
+        @inject(CryptoHelper) private readonly _cryptoHelper: ICryptoHelper
     ) {}
 
     async handle(req: RegisterCommand) {
@@ -25,9 +24,13 @@ export class RegisterCommandHandler implements IReqHandler<RegisterCommand, OkRe
         if (IsUserExist) {
             return new DuplicatedError();
         }
-        const hashPwd = this._crypto.Hashing(req.password).toString();
-        const base64Pwd = this._crypto.toBase64(hashPwd);
-        const user = await this._userRepository.createUser(UserEntity.Create(req.account, base64Pwd, req.userName));
+        const user = await this._userRepository.createUser(
+            UserEntity.Create(
+                req.account, 
+                this._cryptoHelper.hashPassword(req.password), 
+                req.userName
+            )
+        );
         return new OkResponse(new RegisterResult(user.account, user.userName));
     }
 }
