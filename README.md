@@ -33,4 +33,10 @@ bun run auth-local #local
 bun run auth-dev #dev
 ```
 
+To run Test:
+
+```bash
+bun run test
+```
+
 This project was created using `bun init` in bun v1.1.2. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.

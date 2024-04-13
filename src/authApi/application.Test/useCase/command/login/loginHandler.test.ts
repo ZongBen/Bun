@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { describe, test, expect, beforeEach, mock } from 'bun:test';
 import { LoginHandler } from '../../../../application/useCase/command/login/loginHandler';
 import { LoginCommand } from '../../../../application/useCase/command/login/loginCommand';

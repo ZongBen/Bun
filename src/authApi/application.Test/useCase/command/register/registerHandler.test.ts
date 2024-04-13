@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { describe, test, beforeEach, mock, expect } from 'bun:test';
 import type { IUserRepository } from "../../../../application/persistences/IUserRepository";
 import type { UserEntity } from "../../../../domain/user/userEntity";

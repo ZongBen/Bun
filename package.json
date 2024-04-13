@@ -2,7 +2,8 @@
   "scripts": {
     "authApi-local": "NODE_ENV=local bun --watch src/authApi/main.ts",
     "authApi-dev": "NODE_ENV=dev bun --watch src/authApi/main.ts",
-    "build-local-envir": "sudo docker compose -f docker-compose.local.yml -p coreddd-local up -d"
+    "build-local-envir": "sudo docker compose -f docker-compose.local.yml -p coreddd-local up -d",
+    "test": "bun test --preload ./setupTesting.ts"
   },
   "dependencies": {
     "@types/bun": "^1.0.12",
