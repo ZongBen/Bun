@@ -7,12 +7,12 @@ import { OkResponse } from '../../../../../commonLib/applicationLib/okResponse';
 import type { ErrorResponse } from '../../../../../commonLib/applicationLib/errorResponse';
 import { DuplicatedError } from './duplicatedError';
 import { RegisterResult } from './registerResult';
-import { UserEntity } from '../../../../domainLayer/user/userEntity';
+import { UserEntity } from '../../../../domain/user/userEntity';
 import { CryptoHelper } from '../../../../../commonLib/applicationLib/cryptoHelper';
 import type { ICryptoHelper } from '../../../../../commonLib/applicationLib/interfaces/ICryptoHelper';
 
 @injectable()
-export class RegisterCommandHandler implements IReqHandler<RegisterCommand, OkResponse | ErrorResponse> {
+export class RegisterHandler implements IReqHandler<RegisterCommand, OkResponse | ErrorResponse> {
 
     constructor(
         @inject(UserRepository) private readonly _userRepository: IUserRepository,
@@ -25,7 +25,7 @@ export class RegisterCommandHandler implements IReqHandler<RegisterCommand, OkRe
             return new DuplicatedError();
         }
         const user = await this._userRepository.createUser(
-            UserEntity.Create(
+            UserEntity.create(
                 req.account,
                 this._cryptoHelper.hashPassword(req.password),
                 req.userName

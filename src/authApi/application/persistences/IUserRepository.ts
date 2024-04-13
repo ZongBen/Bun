@@ -1,5 +1,5 @@
 import type { IJwTokenGenerator } from "../../../commonLib/jwTokenLib/interfaces/IJwTokenGenerator";
-import type { UserEntity } from "../../domainLayer/user/userEntity";
+import type { UserEntity } from "../../domain/user/userEntity";
 
 export interface IUserRepository {
     getUserByAccount(account: string): Promise<UserEntity | null>;

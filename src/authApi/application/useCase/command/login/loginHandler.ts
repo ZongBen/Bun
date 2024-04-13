@@ -13,7 +13,7 @@ import { LoginResult } from './loginResult';
 import type { IJwTokenGenerator } from '../../../../../commonLib/jwTokenLib/interfaces/IJwTokenGenerator';
 
 @injectable()
-export class LoginCommandHandler implements IReqHandler<LoginCommand, OkResponse | ErrorResponse> {
+export class LoginHandler implements IReqHandler<LoginCommand, OkResponse | ErrorResponse> {
 
     constructor(
         @inject(UserRepository) private readonly _userRepository: IUserRepository,
@@ -25,7 +25,7 @@ export class LoginCommandHandler implements IReqHandler<LoginCommand, OkResponse
 
     async handle(req: LoginCommand) {
         const user = await this._userRepository.getUserByAccount(req.account);
-        if (!user || !user.ValidPassword(this._cryptoHelper.hashPassword(req.password))) {
+        if (!user || !user.validPassword(this._cryptoHelper.hashPassword(req.password))) {
             return new LoginError();
         }
         const token = this._userRepository.getUserToken(user, this._jwTokenGenerator);

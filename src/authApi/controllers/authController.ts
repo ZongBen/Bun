@@ -1,13 +1,13 @@
 import type { NextFunction, Request, Response } from "express";
 import { BaseController } from "../../commonLib/controllerLib/baseController";
 import type { LoginReq } from "../contract/auth/login/loginReq";
-import { LoginCommand } from "../applicationLayer/useCase/command/login/loginCommand";
+import { LoginCommand } from "../application/useCase/command/login/loginCommand";
 import { inject } from "inversify";
 import type { IMediator } from "../../commonLib/mediatorLib/interfaces/IMediator";
 import { MEDIATOR_TYPES } from "../../commonLib/mediatorLib/types";
 import { loginRule } from "../contract/auth/login/loginRule";
 import type { RegisterReq } from "../contract/auth/register/registerReq";
-import { RegisterCommand } from "../applicationLayer/useCase/command/register/registerCommand";
+import { RegisterCommand } from "../application/useCase/command/register/registerCommand";
 import { registerRule } from "../contract/auth/register/registerRule";
 
 export class AuthController extends BaseController {

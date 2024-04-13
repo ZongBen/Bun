@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import type { IMongoClient } from "../../../commonLib/mongoLib/interfaces/IMongoClient";
-import type { IUserRepository } from "../../applicationLayer/persistences/IUserRepository";
-import { UserEntity } from "../../domainLayer/user/userEntity";
+import type { IUserRepository } from "../../application/persistences/IUserRepository";
+import { UserEntity } from "../../domain/user/userEntity";
 import { ModelCodes } from '../collections/modelCodes';
 import { User } from "../collections/user";
 import { MONGO_TYPES } from "../../../commonLib/mongoLib/types";

@@ -9,11 +9,11 @@ export class UserEntity {
         this.userName = userName;
     }
 
-    static Create(account: string, encryptedPwd: string, userName: string): UserEntity {
+    static create(account: string, encryptedPwd: string, userName: string): UserEntity {
         return new UserEntity(account, encryptedPwd, userName);
     }
 
-    ValidPassword(encryptedPwd: string): boolean {
+    validPassword(encryptedPwd: string): boolean {
         return this.encryptedPwd === encryptedPwd;
     }
 }
