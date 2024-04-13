@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import type { IReqHandler } from '../../../../../commonLib/applicationLib/interfaces/IReqHandler';
 import { RegisterCommand } from './registerCommand';
-import { UserRepository } from '../../../../infraLayer/repositories/userRepository';
+import { UserRepository } from '../../../../infra/repositories/userRepository';
 import type { IUserRepository } from '../../../persistences/IUserRepository';
 import { OkResponse } from '../../../../../commonLib/applicationLib/okResponse';
 import type { ErrorResponse } from '../../../../../commonLib/applicationLib/errorResponse';

@@ -1,5 +1,5 @@
 import { App } from "../commonLib/bootstrapLib/app";
-import { schemas } from './infraLayer/collections';
+import { schemas } from './infra/collections';
 import { mediatorModule } from '../commonLib/mediatorLib/mediatorModule';
 import { HandlerMap } from './application/handlerMap';
 import { mongoModule } from '../commonLib/mongoLib/mongoModule';

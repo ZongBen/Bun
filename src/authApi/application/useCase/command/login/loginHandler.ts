@@ -2,7 +2,7 @@ import type { IReqHandler } from '../../../../../commonLib/applicationLib/interf
 import type { IUserRepository } from "../../../persistences/IUserRepository";
 import { LoginCommand } from "./loginCommand";
 import { inject, injectable } from 'inversify';
-import { UserRepository } from '../../../../infraLayer/repositories/userRepository';
+import { UserRepository } from '../../../../infra/repositories/userRepository';
 import { LoginError } from './loginError';
 import { OkResponse } from '../../../../../commonLib/applicationLib/okResponse';
 import type { ErrorResponse } from '../../../../../commonLib/applicationLib/errorResponse';
