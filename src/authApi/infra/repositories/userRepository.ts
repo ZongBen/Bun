@@ -21,7 +21,7 @@ export class UserRepository implements IUserRepository {
         if (!user) {
             return null;
         }
-        return UserEntity.Create(user.account, user.encryptedPwd, user.userName);
+        return UserEntity.create(user.account, user.encryptedPwd, user.userName);
     }
 
     async createUser(userEnity: UserEntity): Promise<UserEntity> {
