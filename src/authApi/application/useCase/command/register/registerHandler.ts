@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import type { IReqHandler } from '../../../../../commonLib/applicationLib/interfaces/IReqHandler';
+import type { IReqHandler } from '../../../../../commonLib/mediatorLib/interfaces/IReqHandler';
 import { RegisterCommand } from './registerCommand';
 import { UserRepository } from '../../../../infra/repositories/userRepository';
 import type { IUserRepository } from '../../../persistences/IUserRepository';

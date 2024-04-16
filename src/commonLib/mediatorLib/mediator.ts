@@ -1,9 +1,10 @@
 import { Container, inject, injectable } from "inversify";
 import type { IMediator } from './interfaces/IMediator';
-import type { IReqHandler } from "../applicationLib/interfaces/IReqHandler";
+import type { IReqHandler } from "./interfaces/IReqHandler";
 import type { IMediatorMap } from "./interfaces/IMediatorMap";
 import { MEDIATOR_TYPES } from "./types";
 import type { INotification } from "./interfaces/INotification";
+import type { IReq } from "./interfaces/IReq";
 
 @injectable()
 export class Mediator implements IMediator {
@@ -14,12 +15,12 @@ export class Mediator implements IMediator {
     ) {
     }
 
-    send<TRes>(req: any): Promise<TRes> {
-        const handler = this._mediatorMap.get(req.constructor);
+    send<TRes>(req: IReq<TRes>): Promise<TRes> {
+        const handler = this._mediatorMap.get(req.constructor) as new (...args: any[]) => IReqHandler<IReq<TRes>, TRes>;
         if (!handler) {
             throw new Error('handler not found');
         }
-        const handlerInstance = this._container.resolve(handler) as IReqHandler<any, TRes>;
+        const handlerInstance = this._container.resolve(handler);
         console.log('send to handler:', handlerInstance.constructor.name);
         return handlerInstance.handle(req);
     }

@@ -1,4 +1,4 @@
-import type { IReqHandler } from '../../../../../commonLib/applicationLib/interfaces/IReqHandler';
+import type { IReqHandler } from '../../../../../commonLib/mediatorLib/interfaces/IReqHandler';
 import type { IUserRepository } from "../../../persistences/IUserRepository";
 import { LoginCommand } from "./loginCommand";
 import { inject, injectable } from 'inversify';

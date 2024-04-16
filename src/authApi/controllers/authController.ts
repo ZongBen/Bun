@@ -21,7 +21,7 @@ export class AuthController extends BaseController {
 
     private async login(req: Request<any, any, LoginReq>, res: Response, next: NextFunction) {
         const command = new LoginCommand(req.body.account, req.body.password);
-        const result = await this._sender.send<any>(command);
+        const result = await this._sender.send(command);
         this.resvoleResponse(result, res, next);
     }
 
@@ -31,7 +31,7 @@ export class AuthController extends BaseController {
 
     private async register(req: Request<any, any, RegisterReq>, res: Response, next: NextFunction) {
         const command = new RegisterCommand(req.body.account, req.body.password, req.body.userName);
-        const result = await this._sender.send<any>(command);
+        const result = await this._sender.send(command);
         this.resvoleResponse(result, res, next);
     }
 
