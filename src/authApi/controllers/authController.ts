@@ -10,7 +10,7 @@ import { RegisterCommand } from "../application/useCase/command/register/registe
 import { registerRule } from "../contract/auth/register/registerRule";
 import type { ISender } from "../../commonLib/mediatorLib/interfaces/ISender";
 import type { IResponse } from "../../commonLib/controllerLib/response";
-import { validErrorHandler } from "./utils/validErrorHandler";
+import { validErrorHandler } from "../../commonLib/controllerLib/handler/validErrorHandler";
 
 export class AuthController extends BaseController {
     apiPath: string = "/auth";

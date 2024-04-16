@@ -1,7 +1,6 @@
 require('express-async-errors');
 import express from "express";
 import "reflect-metadata";
-import { exceptionMiddleware } from "./middlewares/exceptionMiddleware";
 import { Container } from "inversify";
 import type { IBaseController } from "../controllerLib/interfaces/IBaseController";
 import { _args } from "./app.args";
@@ -9,6 +8,7 @@ import { AppOptions } from "./app.options";
 import { Glob } from "bun";
 import { JWTOKEN_TYPES } from "../jwTokenLib/types";
 import type { IJwTokenParser } from "../jwTokenLib/interfaces/IJwTokenParser";
+import { exceptionMiddleware } from "../middewareLib/exceptionMiddleware";
 
 export class App {
   private _app: express.Application;
@@ -64,6 +64,11 @@ export class App {
     return this;
   }
 
+  useMiddleware(middleware: any) {
+    this._app.use(middleware);
+    return this;
+  }
+
   useJwtValidMiddleware() {
     this._app.use((req, res, next) => {
       if (this.options.allowAnonymousPath.includes(req.url)) {
@@ -99,11 +104,6 @@ export class App {
 
   useBodyParser() {
     this._app.use(express.json());
-    return this;
-  }
-
-  useResponseParser(parser: any) {
-    this._app.use(parser);
     return this;
   }
 

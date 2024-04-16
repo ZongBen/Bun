@@ -7,7 +7,7 @@ import { MongoAppExtension } from '../commonLib/mongoLib/mongo.app.extension';
 import { CryptoModule } from "../commonLib/cryptoLib/cryptoModule";
 import { JwTokenModule } from "../commonLib/jwTokenLib/jwTokenModule";
 import { JwTokenSetting } from "../commonLib/jwTokenLib/jwTokenSetting";
-import { responseParser } from "./controllers/utils/responseParser";
+import { responseMiddleware } from "../commonLib/middewareLib/responseMiddleware";
 
 const app = App.createBuilder(opt => {
     opt.port = 8080;
@@ -35,6 +35,6 @@ app.useBodyParser();
 app.useReqLogger();
 app.useJwtValidMiddleware();
 app.mapController();
-app.useResponseParser(responseParser);
+app.useMiddleware(responseMiddleware)
 app.useExceptionMiddleware();
 app.run();
