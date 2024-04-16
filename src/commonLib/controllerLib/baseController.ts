@@ -24,6 +24,7 @@ export abstract class BaseController implements IBaseController {
                     res.status(400).send({
                         errors: errorMessage
                     });
+                    return;
                 }
                 next();
             }
