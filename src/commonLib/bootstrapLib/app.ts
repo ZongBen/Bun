@@ -69,27 +69,13 @@ export class App {
     return this;
   }
 
-  useJwtValidMiddleware() {
+  useJwtValidMiddleware(handler: (req: any, res: any, next: any) => void){
     this._app.use((req, res, next) => {
       if (this.options.allowAnonymousPath.includes(req.url)) {
         next();
         return;
       }
-
-      let token = req.headers.authorization;
-      if (!token || !token.startsWith("Bearer ")) {
-        res.status(401).json({ errors: ["Unauthorized"] });
-        return;
-      }
-      token = token.slice(7, token.length);
-      const jwtParser = this.serviceContainer.get<IJwTokenParser>(JWTOKEN_TYPES.IJwTokenParser);
-      const payload = jwtParser.verifyToken(token);
-      if (!payload) {
-        res.status(401).json({ errors: ["Unauthorized"] });
-        return;
-      }
-      res.locals['jwtPayload'] = payload;
-      next();
+      handler(req, res, next);
     });
     return this;
   }

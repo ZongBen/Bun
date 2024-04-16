@@ -12,7 +12,7 @@ export const responseMiddleware = (_req: Request, res: IResponse, next: NextFunc
     }
     else if (result instanceof ErrorResponse) {
         res.status(result.statusCode).send({
-            errors: result.message
+            errors: [result.message]
         });
     }
     next();

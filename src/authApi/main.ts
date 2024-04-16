@@ -8,6 +8,8 @@ import { CryptoModule } from "../commonLib/cryptoLib/cryptoModule";
 import { JwTokenModule } from "../commonLib/jwTokenLib/jwTokenModule";
 import { JwTokenSetting } from "../commonLib/jwTokenLib/jwTokenSetting";
 import { responseMiddleware } from "../commonLib/middewareLib/responseMiddleware";
+import { jwtValidHandler } from "../commonLib/controllerLib/handler/jwtValidHandler";
+import { JWTOKEN_TYPES } from "../commonLib/jwTokenLib/types";
 
 const app = App.createBuilder(opt => {
     opt.port = 8080;
@@ -33,7 +35,7 @@ app.serviceContainer.load(
 MongoAppExtension.regisSchemas(app.serviceContainer, schemas);
 app.useBodyParser();
 app.useReqLogger();
-app.useJwtValidMiddleware();
+app.useJwtValidMiddleware(new jwtValidHandler(app.serviceContainer.get(JWTOKEN_TYPES.IJwTokenParser)).handler);
 app.mapController();
 app.useMiddleware(responseMiddleware)
 app.useExceptionMiddleware();

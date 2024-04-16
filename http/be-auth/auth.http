@@ -7,8 +7,8 @@ Content-Type: application/json
 
 {
   "username": "test",
-  "password": "",
-  "account": ""
+  "password": "test",
+  "account": "test"
 }
 
 ###
@@ -32,4 +32,4 @@ Content-Type: application/json
 
 POST {{host}}/logout
 Content-Type: application/json
-Authorization: {{jwToken}}
+//Authorization: {{jwToken}}
