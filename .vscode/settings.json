@@ -2,7 +2,7 @@
     "rest-client.environmentVariables": {
         "local": {
             "be-auth-url": "http://localhost:8080/auth/api",
-            "jwToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50IjoidGVzdCIsInVzZXJOYW1lIjoidGVzdCIsImlhdCI6MTcxMzAwODkzNywiZXhwIjoxNzEzMDk1MzM3fQ.zff9eaqXqpzT38dB8aaiTJrbvVwAzie8_ZaQoFundpQ"
+            "jwToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50IjoidGVzdCIsInVzZXJOYW1lIjoidGVzdCIsImlhdCI6MTcxMzI2MjE5NywiZXhwIjoxNzEzMzQ4NTk3fQ.IVg-p7q9KJMhYgEAG1c2fKCsyYiVLoigv9gqpWojHxg"
         }
     }
 }

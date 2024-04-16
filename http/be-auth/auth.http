@@ -8,13 +8,14 @@ Content-Type: application/json
 {
   "username": "test",
   "password": "test",
-  "account": "123"
+  "account": "test"
 }
 
 ###
 
 GET {{host}}/error
 Content-Type: application/json
+Authorization: {{jwToken}}
 
 ###
 

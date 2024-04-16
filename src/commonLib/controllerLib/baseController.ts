@@ -1,9 +1,7 @@
-import { Router, type NextFunction, type Response } from "express"
+import { Router, type NextFunction, type Response, type Request } from "express"
 import type { IBaseController } from "./interfaces/IBaseController";
 import { injectable } from "inversify";
 import { validationResult } from "express-validator";
-import { OkResponse } from "../applicationLib/okResponse";
-import { ErrorResponse } from "../applicationLib/errorResponse";
 
 @injectable()
 export abstract class BaseController implements IBaseController {
@@ -12,13 +10,13 @@ export abstract class BaseController implements IBaseController {
     abstract mapRoutes(): Router;
 
     bindAction(instance: IBaseController, action: Function) {
-        return action.bind(instance)
+        return action.bind(instance);
     }
 
     useValidation(rule: any) {
         return [
             rule,
-            (req: any, res: Response, next: any) => {
+            (req: Request, res: Response, next: NextFunction) => {
                 const errors = validationResult(req);
                 if (!errors.isEmpty()) {
                     return res.status(400).json({ errors: errors.array().map((error) => error.msg) });
@@ -26,19 +24,5 @@ export abstract class BaseController implements IBaseController {
                 next();
             }
         ];
-    }
-
-    resvoleResponse(result: OkResponse | ErrorResponse, res: Response, next: NextFunction) {
-        if (result instanceof OkResponse) {
-            res.send({
-                result: result.data,
-            });
-        }
-        else if (result instanceof ErrorResponse) {
-            res.status(result.statusCode).send({
-                errors: [result.message]
-            });
-        }
-        next();
     }
 }

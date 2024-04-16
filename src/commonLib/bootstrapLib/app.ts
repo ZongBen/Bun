@@ -102,6 +102,11 @@ export class App {
     return this;
   }
 
+  useResponseParser(parser: any) {
+    this._app.use(parser);
+    return this;
+  }
+
   run() {
     this._app.listen(this.options.port, () => {
       console.log(`Listening on port http://localhost:${this.options.port}${this.options.routerPrefix}`);

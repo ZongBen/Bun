@@ -1,4 +1,4 @@
-import type { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request } from "express";
 import { BaseController } from "../../commonLib/controllerLib/baseController";
 import type { LoginReq } from "../contract/auth/login/loginReq";
 import { LoginCommand } from "../application/useCase/command/login/loginCommand";
@@ -9,6 +9,7 @@ import type { RegisterReq } from "../contract/auth/register/registerReq";
 import { RegisterCommand } from "../application/useCase/command/register/registerCommand";
 import { registerRule } from "../contract/auth/register/registerRule";
 import type { ISender } from "../../commonLib/mediatorLib/interfaces/ISender";
+import type { IResponse } from "../../commonLib/controllerLib/response";
 
 export class AuthController extends BaseController {
     apiPath: string = "/auth";
@@ -19,24 +20,26 @@ export class AuthController extends BaseController {
         super();
     }
 
-    private async login(req: Request<any, any, LoginReq>, res: Response, next: NextFunction) {
+    private async login(req: Request<any, any, LoginReq>, res: IResponse, next: NextFunction) {
         const command = new LoginCommand(req.body.account, req.body.password);
-        const result = await this._sender.send(command);
-        this.resvoleResponse(result, res, next);
+        const reuslt = await this._sender.send(command);
+        res.locals.result = reuslt;
+        next();
     }
 
-    private error(_req: Request, _res: Response, _next: NextFunction) {
+    private error(_req: Request, _res: IResponse, _next: NextFunction) {
         throw new Error("test");
     }
 
-    private async register(req: Request<any, any, RegisterReq>, res: Response, next: NextFunction) {
+    private async register(req: Request<any, any, RegisterReq>, res: IResponse, next: NextFunction) {
         const command = new RegisterCommand(req.body.account, req.body.password, req.body.userName);
         const result = await this._sender.send(command);
-        this.resvoleResponse(result, res, next);
+        res.locals.result = result;
+        next();
     }
 
-    private async logout(_req: Request, res: Response, next: NextFunction) {
-        console.log(res.locals['jwtPayload'])
+    private async logout(_req: Request, res: IResponse, next: NextFunction) {
+        console.log(res.locals.jwtPayload)
         res.send("logout");
         next();
     }
