@@ -6,8 +6,6 @@ import type { IBaseController } from "../controllerLib/interfaces/IBaseControlle
 import { _args } from "./app.args";
 import { AppOptions } from "./app.options";
 import { Glob } from "bun";
-import { JWTOKEN_TYPES } from "../jwTokenLib/types";
-import type { IJwTokenParser } from "../jwTokenLib/interfaces/IJwTokenParser";
 import { exceptionMiddleware } from "../middewareLib/exceptionMiddleware";
 
 export class App {
