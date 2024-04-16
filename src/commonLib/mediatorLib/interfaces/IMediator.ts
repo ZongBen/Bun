@@ -1,3 +1,6 @@
-export interface IMediator {
-    send<TRes>(req: any): Promise<TRes>;
+import type { IPublisher } from "./IPublisher";
+import type { ISender } from "./ISender";
+
+export interface IMediator extends ISender, IPublisher {
+
 }

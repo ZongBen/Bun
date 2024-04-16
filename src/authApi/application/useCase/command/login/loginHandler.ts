@@ -11,6 +11,9 @@ import type { ICryptoHelper } from '../../../../../commonLib/applicationLib/inte
 import { JWTOKEN_TYPES } from '../../../../../commonLib/jwTokenLib/types';
 import { LoginResult } from './loginResult';
 import type { IJwTokenGenerator } from '../../../../../commonLib/jwTokenLib/interfaces/IJwTokenGenerator';
+import { MEDIATOR_TYPES } from '../../../../../commonLib/mediatorLib/types';
+import type { IPublisher } from '../../../../../commonLib/mediatorLib/interfaces/IPublisher';
+import { LoginFailedEvent } from './events/loginFailedEvent';
 
 @injectable()
 export class LoginHandler implements IReqHandler<LoginCommand, OkResponse | ErrorResponse> {
@@ -18,7 +21,8 @@ export class LoginHandler implements IReqHandler<LoginCommand, OkResponse | Erro
     constructor(
         @inject(UserRepository) private readonly _userRepository: IUserRepository,
         @inject(CryptoHelper) private readonly _cryptoHelper: ICryptoHelper,
-        @inject(JWTOKEN_TYPES.IJwTokenGenerator) private readonly _jwTokenGenerator: IJwTokenGenerator
+        @inject(JWTOKEN_TYPES.IJwTokenGenerator) private readonly _jwTokenGenerator: IJwTokenGenerator,
+        @inject(MEDIATOR_TYPES.IPublisher) private readonly _publisher: IPublisher
     ) {
 
     }
@@ -26,6 +30,7 @@ export class LoginHandler implements IReqHandler<LoginCommand, OkResponse | Erro
     async handle(req: LoginCommand) {
         const user = await this._userRepository.getUserByAccount(req.account);
         if (!user || !user.validPassword(this._cryptoHelper.hashPassword(req.password))) {
+            this._publisher.publish(new LoginFailedEvent(req.account));
             return new LoginError();
         }
         const token = this._userRepository.getUserToken(user, this._jwTokenGenerator);

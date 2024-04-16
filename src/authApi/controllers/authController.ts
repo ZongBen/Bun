@@ -3,25 +3,25 @@ import { BaseController } from "../../commonLib/controllerLib/baseController";
 import type { LoginReq } from "../contract/auth/login/loginReq";
 import { LoginCommand } from "../application/useCase/command/login/loginCommand";
 import { inject } from "inversify";
-import type { IMediator } from "../../commonLib/mediatorLib/interfaces/IMediator";
 import { MEDIATOR_TYPES } from "../../commonLib/mediatorLib/types";
 import { loginRule } from "../contract/auth/login/loginRule";
 import type { RegisterReq } from "../contract/auth/register/registerReq";
 import { RegisterCommand } from "../application/useCase/command/register/registerCommand";
 import { registerRule } from "../contract/auth/register/registerRule";
+import type { ISender } from "../../commonLib/mediatorLib/interfaces/ISender";
 
 export class AuthController extends BaseController {
     apiPath: string = "/auth";
 
     constructor(
-        @inject(MEDIATOR_TYPES.IMediator) private readonly _mediator: IMediator
+        @inject(MEDIATOR_TYPES.ISender) private readonly _sender: ISender
     ) {
         super();
     }
 
     private async login(req: Request<any, any, LoginReq>, res: Response, next: NextFunction) {
         const command = new LoginCommand(req.body.account, req.body.password);
-        const result = await this._mediator.send<any>(command);
+        const result = await this._sender.send<any>(command);
         this.resvoleResponse(result, res, next);
     }
 
@@ -31,7 +31,7 @@ export class AuthController extends BaseController {
 
     private async register(req: Request<any, any, RegisterReq>, res: Response, next: NextFunction) {
         const command = new RegisterCommand(req.body.account, req.body.password, req.body.userName);
-        const result = await this._mediator.send<any>(command);
+        const result = await this._sender.send<any>(command);
         this.resvoleResponse(result, res, next);
     }
 
