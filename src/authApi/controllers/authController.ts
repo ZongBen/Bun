@@ -10,6 +10,7 @@ import { RegisterCommand } from "../application/useCase/command/register/registe
 import { registerRule } from "../contract/auth/register/registerRule";
 import type { ISender } from "../../commonLib/mediatorLib/interfaces/ISender";
 import type { IResponse } from "../../commonLib/controllerLib/response";
+import { validErrorHandler } from "./utils/validErrorHandler";
 
 export class AuthController extends BaseController {
     apiPath: string = "/auth";
@@ -45,9 +46,9 @@ export class AuthController extends BaseController {
     }
 
     mapRoutes() {
-        this.router.post("/login", this.useValidation(loginRule), this.bindAction(this, this.login));
+        this.router.post("/login", this.useValidation(loginRule, validErrorHandler), this.bindAction(this, this.login));
         this.router.get("/error", this.bindAction(this, this.error));
-        this.router.post("/register", this.useValidation(registerRule), this.bindAction(this, this.register));
+        this.router.post("/register", this.useValidation(registerRule, validErrorHandler), this.bindAction(this, this.register));
         this.router.post("/logout", this.bindAction(this, this.logout));
         return this.router;
     }
