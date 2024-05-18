@@ -19,8 +19,8 @@ const app = App.createBuilder(opt => {
         defaultScope: "Transient"
     };
     opt.allowAnonymousPath = [
-        "/auth/login",
-        "/auth/register",
+        { path: "/auth/login", method: "POST" },
+        { path: "/auth/register", method: "POST" }
     ]
 });
 app.serviceContainer.load(

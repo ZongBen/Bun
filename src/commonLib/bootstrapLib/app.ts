@@ -20,7 +20,12 @@ export class App {
     this.options = options;
     this.serviceContainer = new Container(options.container);
     this.configuration = this._createConfig();
-    this.options.allowAnonymousPath = this.options.allowAnonymousPath.map(p => this.options.routerPrefix + p);
+    this.options.allowAnonymousPath = this.options.allowAnonymousPath.map(p => {
+      return {
+        path: this.options.routerPrefix + p.path,
+        method: p.method.toUpperCase()
+      }
+    });
   }
 
   private _createConfig() {
@@ -67,13 +72,9 @@ export class App {
     return this;
   }
 
-  useJwtValidMiddleware(handler: (req: any, res: any, next: any) => void){
+  useJwtValidMiddleware(handler: (req: any, res: any, next: any) => void) {
     this._app.use((req, res, next) => {
-      if (this.options.allowAnonymousPath.includes(req.url)) {
-        next();
-        return;
-      }
-      handler(req, res, next);
+      this.options.allowAnonymousPath.filter(x => x.path === req.url && x.method === req.method).length > 0 ? next() : handler(req, res, next);
     });
     return this;
   }
