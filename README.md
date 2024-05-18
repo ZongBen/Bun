@@ -29,8 +29,8 @@ bun run build-local-envir
 To run auth:
 
 ```bash
-bun run auth-local #local
-bun run auth-dev #dev
+bun run authApi-local #local
+bun run authApi-dev #dev
 ```
 
 To run Test:
