@@ -7,7 +7,7 @@ import { Crypto } from "./crypto";
 export class CryptoModule extends Module {
     protected bindModule(fn: (regis: interfaces.ContainerModuleCallBack) => interfaces.ContainerModuleCallBack): interfaces.ContainerModuleCallBack {
         return fn((bind) => {
-            bind<ICrypto>(CRYPTO_TYPES.ICrypto).to(Crypto).inSingletonScope();
+            bind<ICrypto>(CRYPTO_TYPES.ICrypto).to(Crypto).inTransientScope();
         });
     }
 }

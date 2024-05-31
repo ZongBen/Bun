@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
-import { ModelCodes } from "./modelCodes";
 import type { IMongoSchema } from "../../../commonLib/mongoLib/interfaces/IMongoSchema";
+import { ColName } from "./colName";
 
 export class User {
     account: string = "";
@@ -14,20 +14,19 @@ export class User {
     }
 }
 
-const userSchema = new Schema<User>(
-    {
-        account: { type: String, required: true, unique: true },
-        encryptedPwd: { type: String, required: true },
-        userName: { type: String, required: true }
-    },
-    {
-        timestamps: true,
-        versionKey: false,
-        collection: ModelCodes.USER
-    }
-);
 
 export class UserSchema implements IMongoSchema {
-    colName = ModelCodes.USER;
-    schema = userSchema;
+    colName = ColName.USER;
+    schema = new Schema<User>(
+        {
+            account: { type: String, required: true, unique: true },
+            encryptedPwd: { type: String, required: true },
+            userName: { type: String, required: true }
+        },
+        {
+            timestamps: true,
+            versionKey: false,
+            collection: ColName.USER
+        }
+    );
 }

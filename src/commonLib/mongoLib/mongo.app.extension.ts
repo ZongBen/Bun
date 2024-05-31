@@ -1,10 +1,10 @@
-import type { IMongoHelper } from "./interfaces/IMongoHelper";
-import { MONGO_TYPES } from "./types";
+import type { App } from "../bootstrapLib/app";
+import type { IMongoInitializer } from "./interfaces/IMongoInitializer";
 import type { IMongoSchema } from './interfaces/IMongoSchema';
-import type { Container } from "inversify";
+import { MONGO_TYPES } from "./types";
 
 export class MongoAppExtension {
-     static regisSchemas(container: Container, schemas: IMongoSchema[]) {
-        container.get<IMongoHelper>(MONGO_TYPES.IMongoHelper).regisModel(schemas);
-    }
+   static regisSchemas(app: App, schemas: IMongoSchema[]) {
+      app.serviceContainer.get<IMongoInitializer>(MONGO_TYPES.IMongoInitializer).regisModel(schemas);
+   }
 }

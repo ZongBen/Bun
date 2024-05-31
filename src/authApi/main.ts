@@ -32,7 +32,7 @@ app.serviceContainer.load(
         app.configuration.jwToken.options
     )).getModule()
 );
-MongoAppExtension.regisSchemas(app.serviceContainer, schemas);
+app.useExtension(app => MongoAppExtension.regisSchemas(app, schemas))
 app.useBodyParser();
 app.useReqLogger();
 app.useJwtValidMiddleware(new jwtValidHandler(app.serviceContainer.get(JWTOKEN_TYPES.IJwTokenParser)).handler);

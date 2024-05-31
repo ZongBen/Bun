@@ -18,9 +18,9 @@ export class JwTokenModule extends Module {
     protected bindModule(fn: (regis: interfaces.ContainerModuleCallBack) => interfaces.ContainerModuleCallBack): interfaces.ContainerModuleCallBack {
         return fn((bind) => {
             bind<IJwTokenSetting>(JWTOKEN_TYPES.IJwTokenSetting).toConstantValue(this.setting);
-            bind<IJwTokenHelper>(JWTOKEN_TYPES.IJwTokenHelper).to(JwTokenHelper).inSingletonScope();
-            bind<IJwTokenGenerator>(JWTOKEN_TYPES.IJwTokenGenerator).to(JwTokenHelper).inSingletonScope();
-            bind<IJwTokenParser>(JWTOKEN_TYPES.IJwTokenParser).to(JwTokenHelper).inSingletonScope();
+            bind<IJwTokenHelper>(JWTOKEN_TYPES.IJwTokenHelper).to(JwTokenHelper).inTransientScope();
+            bind<IJwTokenGenerator>(JWTOKEN_TYPES.IJwTokenGenerator).to(JwTokenHelper).inTransientScope();
+            bind<IJwTokenParser>(JWTOKEN_TYPES.IJwTokenParser).to(JwTokenHelper).inTransientScope();
         });
     }
 }

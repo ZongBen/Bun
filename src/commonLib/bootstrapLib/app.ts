@@ -92,6 +92,11 @@ export class App {
     return this;
   }
 
+  useExtension(extension: (app: App) => void) {
+    extension(this);
+    return this;
+  }
+
   run() {
     this._app.listen(this.options.port, () => {
       console.log(`Listening on port http://localhost:${this.options.port}${this.options.routerPrefix}`);

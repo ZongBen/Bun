@@ -15,9 +15,9 @@ export class mediatorModule extends Module {
     protected bindModule(fn: (regis: interfaces.ContainerModuleCallBack) => interfaces.ContainerModuleCallBack): interfaces.ContainerModuleCallBack {
         return fn((bind) => {
             bind<IMediatorMap>(MEDIATOR_TYPES.IMediatorMap).to(this._mediatorMap).inSingletonScope();
-            bind<IMediator>(MEDIATOR_TYPES.IMediator).to(Mediator).inSingletonScope();
-            bind<ISender>(MEDIATOR_TYPES.ISender).to(Mediator).inSingletonScope();
-            bind<IPublisher>(MEDIATOR_TYPES.IPublisher).to(Mediator).inSingletonScope();
+            bind<IMediator>(MEDIATOR_TYPES.IMediator).to(Mediator).inTransientScope();
+            bind<ISender>(MEDIATOR_TYPES.ISender).to(Mediator).inTransientScope();
+            bind<IPublisher>(MEDIATOR_TYPES.IPublisher).to(Mediator).inTransientScope();
             bind<Container>(Container).toConstantValue(this._container);
         });
     }

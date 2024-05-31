@@ -2,10 +2,10 @@ import { inject, injectable } from "inversify";
 import type { IMongoClient } from "../../../commonLib/mongoLib/interfaces/IMongoClient";
 import type { IUserRepository } from "../../application/persistences/IUserRepository";
 import { UserEntity } from "../../domain/user/userEntity";
-import { ModelCodes } from '../collections/modelCodes';
 import { User } from "../collections/user";
 import { MONGO_TYPES } from "../../../commonLib/mongoLib/types";
 import type { IJwTokenGenerator } from "../../../commonLib/jwTokenLib/interfaces/IJwTokenGenerator";
+import { ColName } from "../collections/colName";
 
 @injectable()
 export class UserRepository implements IUserRepository {
@@ -17,7 +17,7 @@ export class UserRepository implements IUserRepository {
     }
 
     async getUserByAccount(account: string): Promise<UserEntity | null> {
-        const user = await this._mongoClient.getCol<User>(ModelCodes.USER).findOne<User>({ account });
+        const user = await this._mongoClient.getCol<User>(ColName.USER).findOne<User>({ account });
         if (!user) {
             return null;
         }
@@ -25,7 +25,7 @@ export class UserRepository implements IUserRepository {
     }
 
     async createUser(userEnity: UserEntity): Promise<UserEntity> {
-        const userCol = this._mongoClient.getCol<User>(ModelCodes.USER);
+        const userCol = this._mongoClient.getCol<User>(ColName.USER);
         await userCol.create<User>(new User(
             userEnity.account,
             userEnity.encryptedPwd,
@@ -35,7 +35,7 @@ export class UserRepository implements IUserRepository {
     }
 
     getUserToken(userEntity: UserEntity, jwtGenerator: IJwTokenGenerator): string {
-        return jwtGenerator.generateToken({ 
+        return jwtGenerator.generateToken({
             account: userEntity.account,
             userName: userEntity.userName
         });
