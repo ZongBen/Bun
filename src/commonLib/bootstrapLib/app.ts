@@ -74,7 +74,7 @@ export class App {
 
   useJwtValidMiddleware(handler: (req: any, res: any, next: any) => void) {
     this._app.use((req, res, next) => {
-      this.options.allowAnonymousPath.filter(x => x.path === req.url && x.method === req.method).length > 0 ? next() : handler(req, res, next);
+      this.options.allowAnonymousPath.filter(x => req.url.match(x.path) && x.method === req.method).length > 0 ? next() : handler(req, res, next);
     });
     return this;
   }
