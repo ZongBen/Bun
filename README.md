@@ -2,14 +2,14 @@
 
 To install Bun
 
-* Windows
+- Windows
 
 ```bash
 powershell -c "irm bun.sh/install.ps1 | iex"
 ```
 
-* Linux & MacOS
-  
+- Linux & MacOS
+
 ```bash
 curl -fsSL https://bun.sh/install | bash
 ```
@@ -20,13 +20,13 @@ To install dependencies:
 bun install
 ```
 
-To run docker local envir
+To run local environment with docker:
 
 ```bash
 bun run build-local-envir
 ```
 
-To run auth:
+To run project:
 
 ```bash
 bun run authApi-local #local
